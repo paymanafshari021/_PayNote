@@ -1,5 +1,5 @@
-# Secure Wireless LAN 7.4
-PAYMAN
+## Secure Wireless LAN 7.4
+
 ### Topic: Managed AP Topologies
 
 # 📄 PAGE 93 — Managed AP Topologies (Overview)
