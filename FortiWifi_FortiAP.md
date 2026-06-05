@@ -1,4 +1,4 @@
-## Secure Wireless LAN 7.4
+# Secure Wireless LAN 7.4
 
 ### Topic: Managed AP Topologies
 
