@@ -270,7 +270,7 @@ Remote FortiGate          Internet          FortiAP + Router
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### The Remote Worker Scenario — Step by Step
 
@@ -346,7 +346,7 @@ The slide shows a wireless mesh topology diagram:
 **Key bullet points from the slide:**
 
 - Eliminates the need to **physically cable every AP**
-- Best practice on two-radio AP: 
+- Best practice on two-radio AP:
   - One radio = **Backhaul SSID** (carries CAPWAP control + data)
   - One radio = **Client SSID** (serves user devices)
 - Use **5 GHz for backhaul** — best practice
@@ -464,7 +464,7 @@ The slide shows a **point-to-point wireless bridge** connecting two separate wir
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### Wireless Bridge vs. Wireless Mesh — What's the Difference?
 
@@ -495,7 +495,7 @@ The slide gives specific numbers — let's understand why:
 - 40 MHz on 2.4 GHz would cause massive interference — so 20 MHz is used
 - Max rate: **\~150 Mbps**
 
-> 💡 **Trainer Tip:** Always use 5 GHz for the bridge link if possible — more channels, less interference, higher throughput. Use 2.4 GHz only if distance requires it (2.4 GHz penetrates obstacles better).
+> �� **Trainer Tip:** Always use 5 GHz for the bridge link if possible — more channels, less interference, higher throughput. Use 2.4 GHz only if distance requires it (2.4 GHz penetrates obstacles better).
 
 ---
 
@@ -602,7 +602,7 @@ The slide outlines the **free basic license** included with FortiLAN Cloud and m
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### What Is FortiLAN Cloud?
 
@@ -771,7 +771,7 @@ The slide lists features available in both the **free** and **premium** FortiLAN
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### Feature Deep Dives
 
@@ -941,7 +941,7 @@ Every FortiAP device ships with a **FortiCloud Key** — a unique alphanumeric c
 - Proves ownership of the device to Fortinet's cloud systems
 - Is used for **licensing, support entitlement, and cloud management**
 
-> 💡 **Real-world analogy:** The FortiCloud Key is like the **activation code** on the back of a gift card — you scratch it off and enter it online to link the card to your account.
+> �� **Real-world analogy:** The FortiCloud Key is like the **activation code** on the back of a gift card — you scratch it off and enter it online to link the card to your account.
 
 ---
 
@@ -1139,7 +1139,7 @@ This means:
 - You must **delete the SSID** and recreate it in the correct mode
 - All firewall policies, DHCP settings, and AP profiles referencing that SSID would need to be **reconfigured**
 
-> __⚠️ ‼️ **Trainer Warning:** This is a costly mistake in production environments. Always confirm the traffic mode requirement with your network architect **before** deploying. Changing it later means downtime and reconfiguration.‼️__ 
+> __⚠️ ‼️ **Trainer Warning:** This is a costly mistake in production environments. Always confirm the traffic mode requirement with your network architect **before** deploying. Changing it later means downtime and reconfiguration.‼️__
 
 ---
 
@@ -1182,7 +1182,7 @@ Wireless Client
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### How Tunnel Mode Works — Technical Deep Dive
 
@@ -1241,9 +1241,9 @@ This provides clean **Layer 3 traffic segmentation** — Guest clients physicall
 
 ### The Two Critical Cons — Explained
 
-**__Con 1: FortiGate sizing__**__ ALL wireless traffic flows through FortiGate in Tunnel Mode:__
+**__Con 1: FortiGate sizing__**\_\_ ALL wireless traffic flows through FortiGate in Tunnel Mode:\_\_
 
-- __‼️__ 100 wireless clients × 10 Mbps each = **1 Gbps** through FortiGate__‼️__ 
+- __‼️__ 100 wireless clients × 10 Mbps each = **1 Gbps** through FortiGate_\_‼️\_\_
 - FortiGate's **throughput rating** must accommodate this
 - Under-sized FortiGate = bottleneck for entire wireless network
 
@@ -1467,7 +1467,7 @@ The slide explains that **certain FortiAP models** can perform **local security 
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### Why Local Security Inspection Matters
 
@@ -1888,14 +1888,14 @@ Before 802.1X, wireless networks used **Pre-Shared Keys (PSK)**:
 
 - Software running on the **client device**
 - Built into Windows, macOS, iOS, Android natively
-- Responsible for: 
+- Responsible for:
   - Presenting credentials to the authenticator
   - Performing the selected EAP method
   - Establishing the encrypted tunnel if required (PEAP/TLS)
 
 #### 📡 Authenticator (FortiGate / FortiAP)
 
-- The **"middleman"** — critically important concept: 
+- The **"middleman"** — critically important concept:
   - The authenticator **does NOT decide** whether to grant access
   - It simply **relays** EAP messages between supplicant and authentication server
   - It does NOT need to know the EAP method being used
@@ -1907,7 +1907,7 @@ Before 802.1X, wireless networks used **Pre-Shared Keys (PSK)**:
 
 - The **brain** of 802.1X — makes all authentication decisions
 - Supports **RADIUS protocol** (Remote Authentication Dial-In User Service)
-- Checks credentials against: 
+- Checks credentials against:
   - Local user database
   - Active Directory / LDAP
   - Certificate Authority (for EAP-TLS)
@@ -1972,7 +1972,7 @@ The slide states: *"EAP is not a wire protocol; instead it only defines message 
 What this means:
 
 - EAP defines **what messages look like** but not how they travel
-- Different network types encapsulate EAP differently: 
+- Different network types encapsulate EAP differently:
   - **EAPOL** = EAP over LAN (used between supplicant and authenticator on Ethernet/Wi-Fi)
   - **EAP over RADIUS** = EAP messages carried inside RADIUS packets (between authenticator and auth server)
 - The authenticator **unwraps EAPOL** and **re-wraps into RADIUS** — transparent relay
@@ -2091,7 +2091,7 @@ Access-Accept or Access-Reject returned
 - Microsoft's challenge-response authentication method
 - Integrates natively with **Active Directory** — no extra infrastructure needed
 - Supported natively on ALL Windows devices
-- How it works: 
+- How it works:
   1. Server sends a **random challenge** to the client
   2. Client hashes the challenge + password using **NT hash**
   3. Server verifies the hash against Active Directory
@@ -2287,12 +2287,12 @@ Client                          FortiAP
 - **RSNA (Robust Security Network Association)** — the WPA2 security framework
 - Requires mutual authentication + association + four-way handshake
 - **Five keys** are created in total
-- **Two master keys:** 
+- **Two master keys:**
   - **GMK** — Group Master Key
   - **PMK** — Pairwise Master Key
 - PMK is created by either **802.1X/EAP** or **PSK authentication**
 
-> 📌 **Important note from slide:** 802.1X authentication happens **BEFORE** the WPA2 exchange
+> �� **Important note from slide:** 802.1X authentication happens **BEFORE** the WPA2 exchange
 
 ---
 
@@ -2940,7 +2940,7 @@ The slide introduces **MPSK (Multiple Pre-Shared Keys)** — a Fortinet enhancem
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### What Problem Does MPSK Solve?
 
@@ -3017,11 +3017,11 @@ The slide shows the **FortiGate GUI configuration** for a WPA3 SAE SSID:
 **Configuration options:**
 
 - Enter **SAE password** (similar to WPA2 PSK entry)
-- Optional: Enable **SAE-PK (SAE Public Key) authentication** 
+- Optional: Enable **SAE-PK (SAE Public Key) authentication**
   - Requires generating a **private key** using third-party tools
   - Enter PK key + SAE password in SSID settings
   - Client side: only SAE password needed
-- Optional: Enable **H2E (Hash-to-Element) only** 
+- Optional: Enable **H2E (Hash-to-Element) only**
   - Provides secure cryptographic hash function for key exchange
 
 **GUI Path:** `WiFi & Switch Controller > SSIDs`
@@ -3053,7 +3053,7 @@ From a **GUI perspective**, WPA3 SAE looks almost identical to WPA2 Personal:
 - When clients connect, SAE-PK verifies the AP possesses the private key matching the password
 - A rogue AP with the same password but no private key → **authentication fails**
 
-> 💡 **Real-world analogy:** SAE-PK is like a restaurant with a **secret ingredient** in their signature dish — anyone can see the recipe (password) but only the real restaurant can produce the authentic taste (private key proof).
+> �� **Real-world analogy:** SAE-PK is like a restaurant with a **secret ingredient** in their signature dish — anyone can see the recipe (password) but only the real restaurant can produce the authentic taste (private key proof).
 
 **Important:** SAE-PK private key generation requires **third-party cryptographic tools** — FortiGate does not generate them internally.
 
@@ -3244,7 +3244,7 @@ The CLI command `set radius-server "wifi-radius"` references a **pre-configured 
 
 ---
 
-# 📄 PAGE 145 — 802.1X Local Authentication
+# �� PAGE 145 — 802.1X Local Authentication
 
 ---
 
@@ -3271,7 +3271,7 @@ Client → [FortiGate = Authenticator + Authentication Server] → Network Acces
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### When to Use Local Authentication
 
@@ -3338,7 +3338,7 @@ Client → FortiGate (Authenticator only) → Remote RADIUS Server → Access-Ac
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### Remote RADIUS — The Enterprise Standard
 
@@ -3422,7 +3422,7 @@ The slide introduces **WSSO (Wireless Single Sign-On)**:
 
 **Technical requirements:**
 
-- RADIUS server must send **Vendor Specific Attribute (VSA):** 
+- RADIUS server must send **Vendor Specific Attribute (VSA):**
   - Attribute name: `FORTINET-GROUP-NAME`
   - Fortinet Vendor ID: **12356**
 - Local user groups on FortiGate must have the **exact same name** as the RADIUS attribute
@@ -3430,7 +3430,7 @@ The slide introduces **WSSO (Wireless Single Sign-On)**:
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### Why WSSO Matters — The Business Problem
 
@@ -3624,7 +3624,7 @@ A **captive portal** is a web page that intercepts wireless clients before grant
 
 - Best for: **Named guest accounts**, **contractor access**, **hotspot billing**
 - Users must know their username/password
-- Credentials can be from: 
+- Credentials can be from:
   - **Local FortiGate database**
   - **Remote RADIUS server**
   - **FortiAuthenticator** (with self-registration, social login, SMS OTP)
@@ -3632,7 +3632,7 @@ A **captive portal** is a web page that intercepts wireless clients before grant
 #### 2. Disclaimer + Authentication
 
 - Best for: **Corporate guest policy compliance**
-- Users must: 
+- Users must:
   - Read and accept **legal terms of use**
   - Then authenticate with credentials
 - Creates audit trail: this person accepted these terms at this time
@@ -3682,7 +3682,7 @@ The slide covers the **two captive portal authentication portal types**:
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### Local Captive Portal
 
@@ -3748,7 +3748,7 @@ This means:
 
 ---
 
-# 📊 Master Summary — Pages 139–150 
+# 📊 Master Summary — Pages 139–150
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -4161,7 +4161,7 @@ Client B (AP2) ──→ CAPWAP Tunnel ──→ FortiGate
 
 - ALL client traffic flows to FortiGate through the CAPWAP tunnel
 - FortiGate sits in the middle of ALL client-to-client communication paths
-- FortiGate simply drops any packet where: 
+- FortiGate simply drops any packet where:
   - Source = wireless client
   - Destination = another wireless client on the same SSID
 - This works **regardless of which AP** the clients are connected to
@@ -4424,7 +4424,7 @@ The slide explains how VLANs work in **Tunnel Mode SSIDs**:
 
 - VLANs are tied to the **tunneled SSID interface** on FortiGate
 - The SSID interface becomes a **VLAN trunk** (carries multiple tagged VLANs)
-- Each VLAN must be configured as a **separate sub-interface** with: 
+- Each VLAN must be configured as a **separate sub-interface** with:
   - Its own **IP address/subnet**
   - Its own **administrative access settings**
   - Its own **DHCP server** (or relay)
@@ -4636,7 +4636,7 @@ The slide shows a **detailed traffic flow diagram** for Bridge Mode with multipl
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### The 802.1Q Trunk on FortiAP
 
@@ -5263,7 +5263,7 @@ The slide explains how FortiGate **automatically organizes load-balancing VLANs 
 **Key behavior:**
 
 - FortiOS **automatically adds** load balancing VLANs to a **zone** based on the SSID
-- Zone naming convention: `[SSID-interface-name].zone` 
+- Zone naming convention: `[SSID-interface-name].zone`
   - Example: SSID interface = `Fortinet` → Zone = `Fortinet.zone`
 - All VLANs in the zone are configured with **identical access** automatically
 - Zone makes it easier to manage **firewall policies** — one policy covers all VLANs in the zone
@@ -5276,7 +5276,7 @@ The slide explains how FortiGate **automatically organizes load-balancing VLANs 
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### What Is a FortiGate Zone?
 
@@ -6834,7 +6834,7 @@ The slide covers additional custom profile settings:
 - **Default:** After FortiGate manages an AP → direct HTTPS/SSH access is **disabled**
 - Can re-enable via profile or per-AP setting
 - **Not recommended** but useful for troubleshooting
-- Password options: 
+- Password options:
   - **Set** — manually configure a password
   - **Leave Unchanged** — keeps last configured password
 
@@ -6850,7 +6850,7 @@ The slide covers additional custom profile settings:
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### Client Load Balancing — Two Methods Explained
 
@@ -7083,7 +7083,7 @@ The slide lists all **configurable radio settings** per radio in the AP profile:
 - Feeds data to WIDS (Wireless Intrusion Detection System)
 - Provides complete **RF environment awareness**
 
-> 💡 **When to use Dedicated Monitor:** In environments where wireless security monitoring is a compliance requirement — PCI-DSS requires wireless IDS/IPS. With a 3-radio AP, Radio 3 in dedicated monitor mode satisfies this requirement without impacting client capacity.
+> �� **When to use Dedicated Monitor:** In environments where wireless security monitoring is a compliance requirement — PCI-DSS requires wireless IDS/IPS. With a 3-radio AP, Radio 3 in dedicated monitor mode satisfies this requirement without impacting client capacity.
 
 ---
 
@@ -8383,7 +8383,7 @@ The slide details the **client capability tracking mechanism** for frequency han
 **How FortiGate tracks client band capability:**
 
 - Uses **probe responses** to determine if clients support 5 GHz or 6 GHz
-- Maintains a **table per client MAC address** containing: 
+- Maintains a **table per client MAC address** containing:
   - Bands supported (2.4/5/6 GHz)
   - RSSI value on each band
 
@@ -8998,7 +8998,7 @@ A **rogue AP** is any unauthorized wireless access point operating within or nea
 - FortiGate **checks if that client's MAC/IP appears on the wired network** (via ARP/DHCP tables)
 - If the unknown AP's clients appear on your wired network → the rogue AP **is on your wire**
 
-> 💡 **Real-world analogy:** Basic rogue detection is like spotting an unknown person standing outside your building. On-wire detection is like discovering that unknown person is using your internal elevator — they're not just outside, they're inside.
+> �� **Real-world analogy:** Basic rogue detection is like spotting an unknown person standing outside your building. On-wire detection is like discovering that unknown person is using your internal elevator — they're not just outside, they're inside.
 
 ---
 
@@ -9227,7 +9227,7 @@ Attacker:
 
 - **EAPOL (EAP over LAN)** packets are used in WPA/WPA2/WPA3 authentication
 - An attacker floods the AP with large numbers of EAPOL packets
-- Types of EAPOL packets targeted: 
+- Types of EAPOL packets targeted:
   - **EAPOL-START** — triggers authentication restart
   - **EAPOL-LOGOFF** — forces authentication session termination
   - **EAPOL-FAIL** — indicates authentication failure
@@ -9309,7 +9309,7 @@ Attacker:
 
 **What it is:**
 
-- In 802.11 frame headers, two bits indicate traffic direction: 
+- In 802.11 frame headers, two bits indicate traffic direction:
   - **ToDS** = Traffic going TO the Distribution System (wired network)
   - **FromDS** = Traffic coming FROM the Distribution System
 - Normal wireless client frames: One bit set (either ToDS or FromDS — not both)
@@ -9352,7 +9352,7 @@ The slide explains how to **apply WIDS profiles to AP profiles**:
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### The WIDS Profile Application Hierarchy
 
@@ -11100,7 +11100,7 @@ The slide covers **location analytics** capabilities:
 
 - Collects location data from **FortiGate** and **FortiLAN Cloud**
 - Includes: **analytics, heat maps, and reporting**
-- Offers **captive portal-based Wi-Fi access** with multiple login options: 
+- Offers **captive portal-based Wi-Fi access** with multiple login options:
   - Facebook
   - Email
   - Phone number
@@ -11121,7 +11121,7 @@ The slide covers **location analytics** capabilities:
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### Heat Maps — The Visual Intelligence Tool
 
@@ -12388,7 +12388,7 @@ The slide explains **captive portals** — the landing page mechanism:
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### The Captive Portal Mechanism — Technical Operation
 
@@ -13477,7 +13477,7 @@ The slide mentions additional resources **Pole Star and Eddystone**:
 **Eddystone:**
 
 - Google's open BLE beacon format (alternative to Apple's iBeacon)
-- Three frame types: 
+- Three frame types:
   - Eddystone-URL: broadcasts a URL directly (phone can open without app)
   - Eddystone-UID: broadcasts a unique ID (similar to iBeacon Major/Minor)
   - Eddystone-TLM: broadcasts beacon telemetry (battery, temperature)
@@ -14735,7 +14735,7 @@ The slide provides a **complete reference of REST API calls** using GET and POST
 
 ---
 
-## 📋 DETAILED INSTRUCTOR NOTES
+## �� DETAILED INSTRUCTOR NOTES
 
 ### HTTP Methods — The Foundation of REST
 
@@ -15708,7 +15708,7 @@ FortiAnalyzer provides:
 # 📊 Master Summary — Pages 299–300
 
 ```
-┌──────────────────────────────────────────────────────────────────────────┐
+┌───────<horizontalrule></horizontalrule><paragraph></paragraph>───────────────────────────────────────────────────────────────────┐
 │         SYSLOG PROFILES & WI-FI EVENT LOGS — COMPLETE GUIDE             │
 ├─────────────────────────┬────────────────────────────────────────────────┤
 │ TOPIC                   │ KEY FACTS                                      │
@@ -15761,7 +15761,7 @@ FortiAnalyzer provides:
   7. Filter by Physical AP to see all events on one AP in one view
   8. Data Rate of 54 Mbps on 5 GHz = red flag → legacy mode or band steering failure
   9. Frequent roaming events = sticky client problem → investigate handoff settings
-  10. DARRP channel changes appear as Radio-Changed events → schedule during off-hours
+  10. DARRP channel changes ap
 ```
 
 ---
