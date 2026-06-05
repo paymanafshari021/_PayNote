@@ -2,13 +2,7 @@
 
 ### Topic: Managed AP Topologies
 
----
-
----
-
 # 📄 PAGE 93 — Managed AP Topologies (Overview)
-
----
 
 ## 🖥️ SLIDE SUMMARY
 
@@ -25,8 +19,6 @@ The slide also notes that these topologies use **two traffic modes**:
 
 - **Tunnel Mode**
 - **Bridge Mode**
-
----
 
 ## 📋 DETAILED INSTRUCTOR NOTES
 
