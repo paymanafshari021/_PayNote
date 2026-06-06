@@ -16,4 +16,5 @@ Max Clients: [enter number, e.g., 30]
 + Beacon advertising Name,Model,Serial number
 + Adding a new SSID to the group → automatically applies to ALL AP profiles referencing that group. No need to edit each profile individually.
 + Important operational limit: Most FortiAP models support a maximum of 8 SSIDs per radio. When using SSID groups, ensure the total number of SSIDs in the group does not exceed this limit.
-+ Best practice: 3–5 SSIDs per radio maximum in most deployments
++ 3–5 SSIDs per radio maximum in most deployments
++ 

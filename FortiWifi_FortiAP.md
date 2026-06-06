@@ -4222,15 +4222,7 @@ WiFi & Switch Controller > FortiSwitch Ports
 
 ### Topic: Wireless Network Access — VLANs with SSIDs
 
----
-
----
-
-# 📄 PAGE 163 — VLANs with SSIDs Overview
-
----
-
-## 🖥️ SLIDE SUMMARY
+# VLANs with SSIDs Overview
 
 The slide explains **why VLANs are used with SSIDs** and their core benefits:
 
@@ -4244,18 +4236,14 @@ The slide explains **why VLANs are used with SSIDs** and their core benefits:
 
 | Benefit                           | Explanation                                                    |
 |-----------------------------------|----------------------------------------------------------------|
-| 🚀 **Better performance**         | Fewer SSIDs = less airtime wasted on management frames         |
-| 🔒 **Network security**           | Logical separation of traffic without physical separation      |
-| 🎛️ **Traffic control**           | Fine-grained control over inter-VLAN communication             |
-| 📡 **Broadcast domain reduction** | Smaller broadcast domains = less broadcast traffic per segment |
+|  **Better performance**         | Fewer SSIDs = less airtime wasted on management frames         |
+|  **Network security**           | Logical separation of traffic without physical separation      |
+|  **Traffic control**           | Fine-grained control over inter-VLAN communication             |
+|  **Broadcast domain reduction** | Smaller broadcast domains = less broadcast traffic per segment |
 
 **Available in:** Both **Tunnel Mode** and **Bridge Mode**
 
 **Standard:** IEEE **802.1Q** defines VLAN tagging
-
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
 
 ### The Core Problem — SSID Airtime Overhead
 
@@ -4289,8 +4277,6 @@ SSID "Corp-WiFi" + VLAN 10 (IT) + VLAN 20 (Finance) + VLAN 30 (HR)
 
 > 💡 **Real-world analogy:** Multiple SSIDs are like having **separate radio stations** for each department — each one broadcasts continuously even when nobody is listening. VLANs on one SSID are like one radio station with **different programme channels** — one broadcast signal, multiple content streams.
 
----
-
 ### IEEE 802.1Q — VLAN Tagging Standard
 
 **802.1Q** defines how VLAN membership is communicated across a network:
@@ -4317,8 +4303,6 @@ This means:
 - Switch ports between FortiAP and FortiGate must be configured as **trunks** ✅
 - FortiGate must have **VLAN sub-interfaces** configured ✅
 
----
-
 ### Broadcast Domain Benefits
 
 **Without VLANs — large broadcast domain:**
@@ -4336,11 +4320,6 @@ VLAN 20: 100 Finance clients → broadcasts reach only 100 devices
 VLAN 30: 350 General staff → broadcasts reach only 350 devices
 → Much less broadcast overhead per client
 ```
-
----
-
----
-
 # 📄 PAGE 164 — VLANs with Tunnel Mode
 
 ---
