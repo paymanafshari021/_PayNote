@@ -3789,19 +3789,8 @@ This means:
 ```
 
 ---
-
 ### Topic: Wireless Network Access — SSID Control & Client Isolation
-
----
-
----
-
-# 📄 PAGE 157 — SSID Options
-
----
-
-## 🖥️ SLIDE SUMMARY
-
+# SSID Options
 The slide presents **three key SSID control options** available in the FortiGate GUI:
 
 | Option                                 | Default      | Purpose                                                   |
@@ -3814,9 +3803,7 @@ The slide presents **three key SSID control options** available in the FortiGate
 
 The slide also shows a **packet capture of beacon frames** — demonstrating the vendor-specific element visible in real wireless traffic analysis tools.
 
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
+## DETAILED INSTRUCTOR NOTES
 
 ### Option 1 — Maximum Number of Clients
 
@@ -3856,9 +3843,6 @@ WiFi & Switch Controller > SSIDs > [Select SSID]
   Max Clients: [enter number, e.g., 30]
   → 0 = unlimited (default)
 ```
-
----
-
 ### Option 2 — Disable SSID Broadcast (Hidden SSID)
 
 **What it does:** When enabled, the AP **stops including the SSID name** in its beacon frames. The SSID becomes "hidden" — it won't appear in the Wi-Fi network list on client devices.
@@ -3883,8 +3867,6 @@ Beacon Frame:
 
 Clients who **know the SSID name** can still manually enter it and connect — the AP still responds to directed probe requests.
 
----
-
 **Two stated benefits from the slide:**
 
 **Benefit 1 — Increased security:**
@@ -3899,8 +3881,6 @@ Clients who **know the SSID name** can still manually enter it and connect — t
 - Less airtime consumed by discovery traffic
 - Slightly cleaner RF environment
 
----
-
 **The hidden SSID security debate — instructor perspective:**
 
 > ⚠️ **Trainer Warning:** Hidden SSIDs provide **very limited real security**. Any wireless scanning tool (Wireshark, Kismet, NetSpot) can detect hidden SSIDs through:
@@ -3912,8 +3892,6 @@ Clients who **know the SSID name** can still manually enter it and connect — t
 Hidden SSID is best described as **deterrence against casual users**, not a security control against determined attackers. Never rely on SSID hiding as your primary security measure — always combine with strong encryption (WPA3) and authentication (802.1X).
 
 > 💡 **Real-world analogy:** Hiding your SSID is like removing the sign from your front door — your neighbors who know where you live can still knock. Someone determined to find you will check every door on the street anyway.
-
----
 
 ### Option 3 — Vendor-Specific Element in Beacon Frames
 
@@ -3936,8 +3914,6 @@ Hidden SSID is best described as **deterrence against casual users**, not a secu
 
 - All of the above, PLUS
 - FortiAP name, model, serial number (in a Fortinet-proprietary IE)
-
----
 
 **Two use cases from the instructor notes:**
 
@@ -3972,10 +3948,6 @@ Can immediately identify if an AP has been moved, replaced, or is transmitting f
 > 💡 **Real-world analogy:** The vendor-specific element is like **a name tag on every radio transmission** — instead of just hearing a signal, you know exactly which specific AP it came from, by name and serial number.
 
 > ⚠️ **Security consideration:** Advertising model and serial number in beacon frames also gives potential attackers information about your hardware. In high-security environments, disable this feature when not performing active surveys.
-
----
-
----
 
 # 📄 PAGE 158 — SSID Groups
 
