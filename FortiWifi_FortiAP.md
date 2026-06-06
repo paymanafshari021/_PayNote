@@ -4039,11 +4039,7 @@ Each SSID consumes airtime overhead for beacon broadcasts (remember — beacons 
 - Reduces available airtime for actual client data
 - **Best practice: 3–5 SSIDs per radio maximum** in most deployments
 
-# 📄 PAGE 159 — Block Intra-SSID Traffic
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Block Intra-SSID Traffic
 
 The slide explains the **Block Intra-SSID Traffic** feature and its **different behavior based on SSID mode**:
 
@@ -4056,10 +4052,6 @@ The slide explains the **Block Intra-SSID Traffic** feature and its **different 
 
 **GUI Path:** `WiFi & Switch Controller > SSIDs`
 
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
-
 ### What Is Intra-SSID Traffic?
 
 **Intra-SSID traffic** = direct communication **between wireless clients** connected to the same SSID:
@@ -4071,8 +4063,6 @@ Laptop A ───────────────────────�
 ```
 
 Without blocking, wireless clients on the same SSID can communicate directly — like being on the same wired switch segment.
-
----
 
 ### Why Block Intra-SSID Traffic?
 
@@ -4097,8 +4087,6 @@ Without blocking, wireless clients on the same SSID can communicate directly —
 
 > 💡 **Real-world analogy:** Block intra-SSID is like **individual hotel rooms** — guests can all access the hotel lobby (internet) but cannot enter each other's rooms (client-to-client communication blocked).
 
----
-
 ### Tunnel Mode Behavior — Full Isolation
 
 In **Tunnel Mode**, the Block Intra-SSID option provides **complete isolation**:
@@ -4118,8 +4106,6 @@ Client B (AP2) ──→ CAPWAP Tunnel ──→ FortiGate
   - Destination = another wireless client on the same SSID
 - This works **regardless of which AP** the clients are connected to
 - Even clients on **completely different APs** at different ends of the building are blocked from each other
-
----
 
 ### Bridge Mode Behavior — Per-AP Isolation Only
 
@@ -4144,8 +4130,6 @@ Client A ── FortiAP-1 ──→ Switch ──→ FortiAP-2 ── Client B
 - Traffic from AP1 can reach AP2 through the switch → AP2 delivers it to its client
 
 This is a **fundamental architectural limitation** of Bridge Mode — not a bug.
-
----
 
 ### The Bridge Mode Solution — Private VLAN
 
@@ -4177,8 +4161,6 @@ WiFi & Switch Controller > FortiSwitch Ports
   → Set uplink port as promiscuous
 ```
 
----
-
 ### Decision Matrix — Choosing the Right Isolation Method
 
 ```
@@ -4203,12 +4185,7 @@ WiFi & Switch Controller > FortiSwitch Ports
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
-
----
-
----
-
-# 📊 Master Summary — Pages 157–159
+# 📊 Master Summary
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
