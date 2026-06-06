@@ -4299,9 +4299,9 @@ Normal Ethernet Frame:
 
 This means:
 
-- FortiAP must support 802.1Q tagging ✅ (all modern FortiAP models do)
-- Switch ports between FortiAP and FortiGate must be configured as **trunks** ✅
-- FortiGate must have **VLAN sub-interfaces** configured ✅
+- FortiAP must support 802.1Q tagging (all modern FortiAP models do)
+- Switch ports between FortiAP and FortiGate must be configured as **trunks**
+- FortiGate must have **VLAN sub-interfaces** configured 
 
 ### Broadcast Domain Benefits
 
