@@ -3949,8 +3949,6 @@ Can immediately identify if an AP has been moved, replaced, or is transmitting f
 
 # SSID Groups
 
-## SLIDE SUMMARY
-
 The slide introduces **SSID Groups** — a management simplification feature:
 
 **Key concepts:**
@@ -3961,8 +3959,6 @@ The slide introduces **SSID Groups** — a management simplification feature:
 - Creating an SSID group assigns **multiple SSIDs at once** to APs using that profile
 
 **GUI Path:** `WiFi & Switch Controller > SSIDs > Create New > SSID Group`
-
-## DETAILED INSTRUCTOR NOTES
 
 ### What Problem Do SSID Groups Solve?
 
