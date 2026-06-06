@@ -3947,11 +3947,9 @@ Can immediately identify if an AP has been moved, replaced, or is transmitting f
 
 > ⚠️ **Security consideration:** Advertising model and serial number in beacon frames also gives potential attackers information about your hardware. In high-security environments, disable this feature when not performing active surveys.
 
-# 📄 PAGE 158 — SSID Groups
+# SSID Groups
 
----
-
-## 🖥️ SLIDE SUMMARY
+## SLIDE SUMMARY
 
 The slide introduces **SSID Groups** — a management simplification feature:
 
@@ -3964,9 +3962,7 @@ The slide introduces **SSID Groups** — a management simplification feature:
 
 **GUI Path:** `WiFi & Switch Controller > SSIDs > Create New > SSID Group`
 
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
+## DETAILED INSTRUCTOR NOTES
 
 ### What Problem Do SSID Groups Solve?
 
@@ -3997,8 +3993,6 @@ FortiAP Profile "Branch-AP" → SSID Group: Standard-SSIDs  ← same group, one 
 
 Adding a new SSID to the group → **automatically applies to ALL AP profiles** referencing that group. No need to edit each profile individually.
 
----
-
 ### SSID Groups in Practice — Configuration Steps
 
 **Step 1: Create individual SSIDs**
@@ -4025,8 +4019,6 @@ WiFi & Switch Controller > FortiAP Profiles > [Select Profile]
   ← All member SSIDs are automatically broadcast by APs using this profile
 ```
 
----
-
 ### Scalability Benefit — Real Enterprise Example
 
 Consider a retail chain with **200 stores**, each running the same 4 SSIDs:
@@ -4041,8 +4033,6 @@ With groups:    200 profiles × 1 group assignment = 200 configurations
 
 > 💡 **Real-world analogy:** SSID Groups are like a **TV channel package** — instead of subscribing to 50 channels individually, you subscribe to the "Premium Package" and get all 50 channels in one selection. Adding a new channel to the package automatically gives it to all package subscribers.
 
----
-
 ### SSID Groups and Radio Limits
 
 > ⚠️ **Important operational limit:** Most FortiAP models support a maximum of **8 SSIDs per radio**. When using SSID groups, ensure the total number of SSIDs in the group does not exceed this limit.
@@ -4052,10 +4042,6 @@ Each SSID consumes airtime overhead for beacon broadcasts (remember — beacons 
 - Wastes airtime on management traffic
 - Reduces available airtime for actual client data
 - **Best practice: 3–5 SSIDs per radio maximum** in most deployments
-
----
-
----
 
 # 📄 PAGE 159 — Block Intra-SSID Traffic
 
