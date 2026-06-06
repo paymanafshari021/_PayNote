@@ -3803,8 +3803,6 @@ The slide presents **three key SSID control options** available in the FortiGate
 
 The slide also shows a **packet capture of beacon frames** — demonstrating the vendor-specific element visible in real wireless traffic analysis tools.
 
-## DETAILED INSTRUCTOR NOTES
-
 ### Option 1 — Maximum Number of Clients
 
 **What it does:** Limits the total number of wireless clients that can associate to a specific SSID at any given time.
