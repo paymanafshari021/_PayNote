@@ -4320,11 +4320,7 @@ VLAN 20: 100 Finance clients → broadcasts reach only 100 devices
 VLAN 30: 350 General staff → broadcasts reach only 350 devices
 → Much less broadcast overhead per client
 ```
-# 📄 PAGE 164 — VLANs with Tunnel Mode
-
----
-
-## 🖥️ SLIDE SUMMARY
+# VLANs with Tunnel Mode
 
 The slide explains how VLANs work in **Tunnel Mode SSIDs**:
 
@@ -4342,10 +4338,6 @@ The slide explains how VLANs work in **Tunnel Mode SSIDs**:
 
 - VLAN interfaces: `Network > Interfaces`
 - Parent interface = SSID interface → create VLAN sub-interfaces under it
-
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
 
 ### How Tunnel Mode VLANs Work — Architecture Deep Dive
 
@@ -4367,8 +4359,6 @@ FortiGate SSID interface (trunk):
 ```
 
 The SSID interface acts as a **trunk** — it receives VLAN-tagged CAPWAP traffic and distributes it to the correct sub-interface based on the VLAN tag.
-
----
 
 ### Configuring VLAN Sub-Interfaces on FortiGate
 
@@ -4402,9 +4392,6 @@ Policy: VLAN10-to-Internet
   Action: ACCEPT
   Security Profiles: [apply appropriate profiles]
 ```
-
----
-
 ### Critical Rule — Separate DHCP per VLAN
 
 Each VLAN sub-interface **must** have its own DHCP configuration:
@@ -4416,15 +4403,7 @@ Each VLAN sub-interface **must** have its own DHCP configuration:
 
 > ⚠️ **Trainer Warning:** A very common mistake is forgetting to configure DHCP on a new VLAN sub-interface. Clients connect, get tagged into the VLAN, but receive no IP address → they appear connected but have no network access. Always verify DHCP is configured on every VLAN interface.
 
----
-
----
-
-# 📄 PAGE 165 — Local Bridge with VLANs
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Local Bridge with VLANs
 
 The slide shows **Bridge Mode SSID with VLAN support**:
 
@@ -4450,11 +4429,6 @@ config wireless-controller vap
         set local-bridging enable
     end
 ```
-
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
-
 ### Bridge Mode + VLANs — How It Differs from Tunnel Mode
 
 **Tunnel Mode + VLANs:**
@@ -4474,8 +4448,6 @@ Local intra-VLAN traffic → never reaches FortiGate
 
 > 💡 **Real-world analogy:** Bridge Mode VLANs are like a **local post office** that handles all mail within the same city itself — only packages going to another city (another VLAN) get sent to the central sorting facility (FortiGate).
 
----
-
 ### The `local-bridging enable` CLI Command
 
 The key CLI parameter that enables Bridge Mode VLAN behavior:
@@ -4493,8 +4465,6 @@ This tells FortiAP to:
 
 Without this setting → traffic goes through CAPWAP to FortiGate (Tunnel Mode behavior).
 
----
-
 ### When Firewall Policies Are Required in Bridge Mode
 
 The slide states: *"Firewall policies on FortiGate are required only to route traffic between interfaces."*
@@ -4506,10 +4476,6 @@ This means:
 - Client in VLAN 10 accessing server also in VLAN 10 → switches locally through FortiSwitch → **NO FortiGate policy needed**
 
 This significantly reduces the number of firewall policies required compared to Tunnel Mode.
-
----
-
----
 
 # 📄 PAGE 166 — Local Bridge VLAN Traffic Flow
 

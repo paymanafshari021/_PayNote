@@ -17,4 +17,12 @@ Max Clients: [enter number, e.g., 30]
 + Adding a new SSID to the group → automatically applies to ALL AP profiles referencing that group. No need to edit each profile individually.
 + Important operational limit: Most FortiAP models support a maximum of 8 SSIDs per radio. When using SSID groups, ensure the total number of SSIDs in the group does not exceed this limit.
 + 3–5 SSIDs per radio maximum in most deployments
-+ 
++ The local-bridging enable CLI Command - The key CLI parameter that enables Bridge Mode VLAN behavior:
+  + set local-bridging enable
+    + This tells FortiAP to:
+      + Accept wireless client traffic
+      + Apply the appropriate VLAN tag based on SSID/RADIUS assignment
+      + Forward the tagged traffic directly onto the wired interface (802.1Q trunk)
+      + NOT send data traffic through CAPWAP to FortiGate
+        + Without this setting → traffic goes through CAPWAP to FortiGate (Tunnel Mode behavior).
+
