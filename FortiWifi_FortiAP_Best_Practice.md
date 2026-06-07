@@ -20,9 +20,32 @@ Max Clients: [enter number, e.g., 30]
 + The local-bridging enable CLI Command - The key CLI parameter that enables Bridge Mode VLAN behavior:
   + set local-bridging enable
     + This tells FortiAP to:
-      + Accept wireless client traffic
-      + Apply the appropriate VLAN tag based on SSID/RADIUS assignment
-      + Forward the tagged traffic directly onto the wired interface (802.1Q trunk)
-      + NOT send data traffic through CAPWAP to FortiGate
+      + 1. Accept wireless client traffic
+      + 2. Apply the appropriate VLAN tag based on SSID/RADIUS assignment
+      + 3. Forward the tagged traffic directly onto the wired interface (802.1Q trunk)
+      + 4. NOT send data traffic through CAPWAP to FortiGate
         + Without this setting → traffic goes through CAPWAP to FortiGate (Tunnel Mode behavior).
-
++ Change management VLAN from VLAN 1 to a dedicated management VLAN (e.g., VLAN 99). VLAN 1 is the default on most switches and is a common attack target.
++ Dynamic VLANs - Three IETF RADIUS Attributes
+  + Tunnel-Type = VLAN 
+  + Tunnel-Medium-Type = IEEE 802
+  + Tunnel-Private-Group-ID = [VLAN ID or name]
++ Default VLAN 100 = fallback if RADIUS sends no VLAN info
++ The default VLAN is your safety net AND a diagnostic tool. If many users are landing on the default VLAN unexpectedly, your RADIUS attribute configuration likely has an error.
++ Before enabling dynamic-vlan:
+  + □ All possible VLAN sub-interfaces created on FortiGate
+  + □ Each VLAN has IP address configured
+  + □ Each VLAN has DHCP server or relay configured
+  + □ Each VLAN has at least one firewall policy
+  + □ RADIUS server configured to return all 3 IETF attributes
+  + □ Test with a known user and verify correct VLAN assignment
+  + □ Default VLAN configured as fallback
+  + □ Default VLAN firewall policy and DHCP configured
++ VLAN Assignment by Name Tag
+  - Each name can map to **1 VLAN ID** (one-to-one) OR up to **8 VLAN IDs** (one-to-many)
+  - When multiple VLAN IDs are assigned per name → **round-robin** selection
++ For the onboarding VLAN to work, **Device Detection must be enabled**
++ What device detection collects:
+  - MAC OUI: First 3 bytes identify manufacturer → 70:4C:A5 = Fortinet (FortiAP)
++ **Why short lease time on onboarding VLAN?**
+  - Device gets onboarding IP → NAC evaluates → moves to target VLAN → needs new IP

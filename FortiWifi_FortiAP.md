@@ -4477,11 +4477,7 @@ This means:
 
 This significantly reduces the number of firewall policies required compared to Tunnel Mode.
 
-# 📄 PAGE 166 — Local Bridge VLAN Traffic Flow
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Local Bridge VLAN Traffic Flow
 
 The slide shows a **detailed traffic flow diagram** for Bridge Mode with multiple VLANs:
 
@@ -4508,10 +4504,6 @@ The slide shows a **detailed traffic flow diagram** for Bridge Mode with multipl
 - Local VLAN traffic does **NOT tunnel back to FortiGate**
 - VLAN IDs are managed **directly in SSID configuration**
 
----
-
-## �� DETAILED INSTRUCTOR NOTES
-
 ### The 802.1Q Trunk on FortiAP
 
 For Bridge Mode VLANs to work, the FortiAP's wired Ethernet port must be connected to a **trunk port** on the switch:
@@ -4527,8 +4519,6 @@ FortiAP Ethernet port → [802.1Q trunk] → Switch trunk port
 
 The switch must be configured to **allow all required VLANs** on the trunk port connected to the FortiAP.
 
----
-
 ### VLAN 1 — Management Traffic Special Role
 
 Notice in the diagram that **VLAN 1 = management traffic (CAPWAP)**:
@@ -4540,8 +4530,6 @@ Notice in the diagram that **VLAN 1 = management traffic (CAPWAP)**:
 
 > ⚠️ **Security best practice:** Change management VLAN from VLAN 1 to a dedicated management VLAN (e.g., VLAN 99). VLAN 1 is the default on most switches and is a common attack target.
 
----
-
 ### Local Switching — Performance Advantage
 
 The most important performance benefit shown in this diagram:
@@ -4551,15 +4539,7 @@ The most important performance benefit shown in this diagram:
 
 > 💡 **Trainer Tip:** For high-throughput local applications (file servers, video production, engineering workstations), Bridge Mode with local VLANs dramatically outperforms Tunnel Mode.
 
----
-
----
-
-# 📄 PAGE 167 — Dynamic VLANs
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Dynamic VLANs
 
 The slide introduces **Dynamic VLANs** — where VLAN assignment is controlled by the RADIUS server:
 
@@ -4575,10 +4555,6 @@ The slide introduces **Dynamic VLANs** — where VLAN assignment is controlled b
 | **Tunnel-Private-Group-ID** | **IETF 81** | VLAN ID number or VLAN interface name |
 
 **Supported in:** Both **Tunnel Mode** and **Bridge Mode** SSIDs
-
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
 
 ### What Are Dynamic VLANs?
 
@@ -4603,8 +4579,6 @@ Both on the SAME SSID — completely different VLANs based on identity
 ```
 
 > 💡 **Real-world analogy:** Dynamic VLANs are like a **hotel room key card** — everyone enters through the same front door (same SSID), but the key card (RADIUS attribute) determines which floor and room they access (which VLAN they join).
-
----
 
 ### The Three IETF RADIUS Attributes — Technical Deep Dive
 
@@ -4636,8 +4610,6 @@ Purpose: The specific VLAN to assign this user to
 
 All three must be present in the RADIUS reply — missing any one attribute → dynamic VLAN assignment fails.
 
----
-
 ### RADIUS Server Configuration Example (FortiAuthenticator/NPS)
 
 **For user "john.doe" → VLAN 30:**
@@ -4653,8 +4625,6 @@ RADIUS Reply Attributes:
 
 **On Windows NPS:** Network Policy → Settings → RADIUS Attributes → Vendor Specific or Standard Attributes → Add Tunnel attributes
 
----
-
 ### Critical Rule — VLANs Must Pre-Exist on FortiGate
 
 The slide and instructor notes state explicitly: *"FortiGate does not dynamically create VLANs."*
@@ -4667,15 +4637,7 @@ This means:
 
 > ⚠️ **Trainer Warning:** Pre-creating all VLANs is critical and commonly missed. In a deployment with 20 possible VLANs, all 20 must be created with IP, DHCP, and firewall policies BEFORE enabling dynamic VLAN assignment. Missing even one VLAN means some users fail to connect.
 
----
-
----
-
-# 📄 PAGE 168 — Dynamic VLAN Assignment RADIUS
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Dynamic VLAN Assignment RADIUS
 
 The slide shows the **complete dynamic VLAN configuration** with CLI and traffic flow:
 
@@ -4703,10 +4665,6 @@ FortiGate (tunnel mode SSID):
 Default VLAN 100 = fallback if RADIUS sends no VLAN info
 ```
 
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
-
 ### Default VLAN ID — The Fallback Safety Net
 
 The `set vlanid 100` command sets a **default VLAN**:
@@ -4730,8 +4688,6 @@ User placed in VLAN 100 → gets IP from VLAN 100 DHCP pool
 
 > 💡 **Trainer Tip:** The default VLAN is your safety net AND a diagnostic tool. If many users are landing on the default VLAN unexpectedly, your RADIUS attribute configuration likely has an error.
 
----
-
 ### Tunnel Mode Behavior with Dynamic VLANs
 
 The diagram notes: *"If used on tunnel mode SSID, all traffic is sent to FortiGate."*
@@ -4742,8 +4698,6 @@ Even with dynamic VLAN assignment:
 - In **Bridge Mode** → FortiAP tags with RADIUS-assigned VLAN → traffic exits locally on the wired network
 
 The dynamic VLAN assignment process is identical in both modes — only the **data path** differs.
-
----
 
 ### Complete Pre-Deployment Checklist for Dynamic VLANs
 
@@ -4759,15 +4713,7 @@ Before enabling dynamic-vlan:
 □ Default VLAN firewall policy and DHCP configured
 ```
 
----
-
----
-
-# 📄 PAGE 169 — VLAN Assignment by Name Tag
-
----
-
-## 🖥️ SLIDE SUMMARY
+# VLAN Assignment by Name Tag
 
 The slide introduces **VLAN name-tag assignment** — an alternative to numeric VLAN ID assignment:
 
@@ -4805,10 +4751,6 @@ config wireless-controller vap
 
 **GUI Path:** `FortiAuthenticator: Authentication > User Management > Local Users`
 
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
-
 ### Why Name Tags Instead of VLAN IDs?
 
 **Problem with numeric VLAN IDs:**
@@ -4825,8 +4767,6 @@ config wireless-controller vap
 - Separation of concerns: RADIUS team manages user attributes, network team manages VLAN mapping
 
 > 💡 **Real-world analogy:** Name tags are like assigning employees **job titles** (Sales, Engineering, Management) rather than desk numbers. The office layout (VLAN IDs) can change without updating HR records (RADIUS) — you just update the floor plan (VLAN table on FortiGate).
-
----
 
 ### One Name → Multiple VLANs — Round Robin Explained
 
@@ -4854,15 +4794,7 @@ User 5 authenticates → assigned VLAN 200
 
 > ⚠️ **Trainer Warning:** Maximum is **8 VLAN IDs per name tag**. Plan your capacity based on expected concurrent users: if you need to support 500 concurrent "data" users and each VLAN can host 254 clients → you need at least 2 VLANs (ideally 3 for headroom).
 
----
-
----
-
-# 📄 PAGE 170 — VLAN Pool
-
----
-
-## 🖥️ SLIDE SUMMARY
+# VLAN Pool
 
 The slide introduces **VLAN Pools** — a FortiGate feature for VLAN-based client management:
 
@@ -4877,10 +4809,6 @@ The slide introduces **VLAN Pools** — a FortiGate feature for VLAN-based clien
 
 - If VLAN pool contains **no valid VLAN ID** → SSID static VLAN ID is used
 
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
-
 ### VLAN Pool vs. Dynamic VLAN — Key Difference
 
 | Feature                     | Dynamic VLAN                | VLAN Pool                             |
@@ -4890,8 +4818,6 @@ The slide introduces **VLAN Pools** — a FortiGate feature for VLAN-based clien
 | **Per-user granularity**    | ✅ Per individual user       | ❌ Per AP group or load balance        |
 | **RADIUS dependency**       | ✅ High                      | ❌ None                                |
 | **Use case**                | Identity-based segmentation | Location or load-based segmentation   |
-
----
 
 ### AP Group-Based VLAN Assignment — Use Cases
 
@@ -4922,15 +4848,7 @@ Benefits:
 
 > 💡 **Real-world analogy:** AP group VLAN assignment is like a **building with different colored badges** — if you enter through the main entrance (lobby AP), you get a visitor badge (guest VLAN). If you enter through the employee entrance (office AP), you get an employee badge (corporate VLAN). Your location determines your access.
 
----
-
----
-
-# 📄 PAGE 171 — VLAN Pooling and Load Balancing
-
----
-
-## 🖥️ SLIDE SUMMARY
+# VLAN Pooling and Load Balancing
 
 The slide details the **two VLAN pool load balancing algorithms**:
 
@@ -4944,10 +4862,6 @@ The slide details the **two VLAN pool load balancing algorithms**:
 - VLAN pooling load balancing is available **only for SSIDs in Tunnel Mode**
 
 **GUI Path:** `WiFi & Switch Controller > SSIDs`
-
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
 
 ### Why Load Balance Across VLANs?
 
@@ -4967,8 +4881,6 @@ VLAN 104: 10.10.104.0/24 → 254 clients max
 
 Additionally: smaller broadcast domains = less ARP/DHCP/NetBIOS broadcast overhead per client.
 
----
-
 ### Round Robin Algorithm — Deep Dive
 
 ```
@@ -4987,8 +4899,6 @@ Client 5 connects → VLAN 102 (least: 1) → VLAN 102: 2 clients
 **Result:** Clients distributed as evenly as possible across VLANs.
 
 **Best for:** Deployments where client count per VLAN matters (approaching subnet capacity limits).
-
----
 
 ### Hash Algorithm — Deep Dive
 
@@ -5012,8 +4922,6 @@ Example with 3 VLANs:
 
 **Best for:** Very high-density deployments where computational efficiency matters.
 
----
-
 ### Tunnel Mode Only Restriction — Why?
 
 VLAN pooling load balancing requires **central visibility** of all client counts across all VLANs:
@@ -5023,15 +4931,7 @@ VLAN pooling load balancing requires **central visibility** of all client counts
 
 This is a fundamental architectural constraint — not a software limitation.
 
----
-
----
-
-# 📄 PAGE 172 — VLAN Pooling and FortiAP Groups
-
----
-
-## 🖥️ SLIDE SUMMARY
+# VLAN Pooling and FortiAP Groups
 
 The slide explains **FortiAP Group-based VLAN pool assignment**:
 
@@ -5063,10 +4963,6 @@ config wireless-controller vap
 - FortiGate **automatically creates** VLAN interfaces in the GUI when you define them in the VLAN pool
 - However, you must **manually configure** network settings, DHCP, and administrative access for each
 
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
-
 ### FortiAP Groups — What They Are
 
 **FortiAP groups (WTP groups)** are logical collections of FortiAP devices:
@@ -5083,8 +4979,6 @@ WiFi & Switch Controller > Managed FortiAPs
   → Name: "Floor-1-APs"
   → Members: [select specific APs]
 ```
-
----
 
 ### Location-Based Security Policy — Powerful Use Case
 
@@ -5103,8 +4997,6 @@ Result:
 
 This provides **location-aware network access control** without RADIUS — purely based on physical AP location.
 
----
-
 ### Auto-Created VLANs — The Manual Configuration Requirement
 
 The slide notes: *"FortiGate automatically creates the VLANs without any interface settings such as network, administrative access, DHCP server."*
@@ -5122,15 +5014,7 @@ Network > Interfaces > [Auto-created VLAN]
 
 > ⚠️ **Trainer Warning:** This is a very common post-configuration oversight. After defining VLANs in the pool, always go to `Network > Interfaces` and complete the configuration for each auto-created VLAN. Clients will fail to get IP addresses otherwise.
 
----
-
----
-
-# 📄 PAGE 173 — VLAN Pooling, Load Balancing and Zones
-
----
-
-## 🖥️ SLIDE SUMMARY
+# VLAN Pooling, Load Balancing and Zones
 
 The slide explains how FortiGate **automatically organizes load-balancing VLANs into zones**:
 
@@ -5148,10 +5032,6 @@ The slide explains how FortiGate **automatically organizes load-balancing VLANs 
 
 - Configure each VLAN individually with **subnet, DHCP, and other interface options**
 
----
-
-## �� DETAILED INSTRUCTOR NOTES
-
 ### What Is a FortiGate Zone?
 
 A **zone** is a logical grouping of interfaces on FortiGate:
@@ -5159,8 +5039,6 @@ A **zone** is a logical grouping of interfaces on FortiGate:
 - Multiple interfaces treated as **one object** in firewall policies
 - One firewall policy can cover **all interfaces in the zone** simultaneously
 - Changes to zone membership automatically update all policies referencing the zone
-
----
 
 ### Why Zones Are Critical for VLAN Pool Load Balancing
 
@@ -5192,8 +5070,6 @@ Adding VLAN 111 to the pool → automatically joins Fortinet.zone
 
 > 💡 **Real-world analogy:** The zone is like a **department in a company directory** — instead of emailing 50 people individually, you email the "Engineering Department" and everyone in it gets the message. Adding a new engineer to the department automatically includes them in future department emails.
 
----
-
 ### Zone Naming Convention — Practical Example
 
 ```
@@ -5218,8 +5094,6 @@ Policy: Zone-to-Internet
   Security Profiles: [standard corporate profiles]
 ```
 
----
-
 ### Still Must Configure Each VLAN Individually
 
 Despite the convenience of automatic zones, the slide reminds: *"You must configure each VLAN with its own interface option, such as subnet, DHCP, and so on."*
@@ -5241,11 +5115,7 @@ Network > Interfaces:
 
 > ⚠️ **Trainer Warning:** The zone handles **policy management** automatically, but **IP addressing and DHCP** must be configured manually for each VLAN. This is the most common post-deployment issue — VLANs in the zone have no DHCP, clients associate but get APIPA (169.254.x.x) addresses.
 
----
-
----
-
-# 📊 Master Summary — Pages 163–173
+# 📊 Master Summary
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
@@ -5297,19 +5167,758 @@ Network > Interfaces:
   5. Bridge Mode VLANs need 802.1Q trunk on switch port to FortiAP
 ```
 
----
+### Topic: Wireless Network Access — Integrated Wireless NAC
+
+# Integrated Wireless NAC Overview
+
+The slide introduces **Integrated Wireless NAC** — extending wired NAC capabilities to wireless networks:
+
+**What it is:**
+- An **extension of FortiSwitch NAC** functions to wireless networks
+- Uses the **same FortiSwitch NAC policies** — no separate wireless-only policy set needed
+- Shares one unified NAC framework for both wired and wireless devices
+
+**Matching criteria:**
+- Device type / hardware information
+- User groups
+- Devices with a specific **FortiClient EMS tag**
+- **Vulnerability** status (from EMS endpoint assessment)
+
+**Key design elements:**
+
+| Element | Purpose |
+|---|---|
+| **Onboarding VLAN** | Initial VLAN assigned to ALL new wireless clients on connect |
+| **NAC profile** | References the onboarding VLAN + enables NAC on the SSID |
+| **NAC policy** | Defines matching rules → reassigns device to appropriate VLAN |
+
+**SSID compatibility:** NAC works on both **Bridge Mode and Tunnel Mode** SSIDs
+
+**GUI Path:** `WiFi & Switch Controller > SSIDs` → enable NAC + select NAC profile
+
+### What Is Wireless NAC and Why It Matters
+
+**NAC = Network Access Control** — the ability to identify WHAT a device is and WHERE it should be placed on the network, automatically, at the moment it connects.
+
+**Without Wireless NAC:**
+```
+Any device connects to Corporate SSID → immediately gets VLAN 10
+No identification → no classification → no control
+→ An unpatched personal laptop gets same access as a hardened corporate laptop
+→ An IoT device gets same VLAN as a managed workstation
+→ Security policy cannot differentiate — everything is treated equally
+```
+
+**With Wireless NAC:**
+```
+Device connects to SSID:
+  FortiGate identifies the device → checks NAC policies
+  
+  "Windows 11 PC with FortiClient EMS tag: Compliant" → Corporate VLAN 10
+  "iPhone without MDM enrollment" → BYOD VLAN 40
+  "Unknown device, MAC OUI = camera manufacturer" → IoT VLAN 30
+  "Unpatched PC with critical vulnerabilities" → Quarantine VLAN 99
+  
+  → Automatic, policy-driven segmentation based on DEVICE IDENTITY
+  → No manual VLAN assignment needed
+  → Security policy enforced at the moment of connection
+```
+
+> 💡 **Real-world analogy:** Wireless NAC is like a smart hospital badge system. When someone enters the hospital, instead of just checking if their badge works (authentication), the system also checks: Are they a doctor? A nurse? A visitor? A maintenance worker? Each person automatically gets access only to the areas appropriate for their role — automatically, at the door, without a security guard making individual decisions.
+
+### The Relationship Between Wireless NAC and FortiSwitch NAC
+
+**Critical insight from the slide:** *"Shares the same set of FortiSwitch NAC policies."*
+
+```
+FortiSwitch NAC (wired):
+  PC plugs into switch port
+  FortiGate reads device attributes → matches NAC policy → assigns VLAN on switch port
+
+Wireless NAC (wireless):
+  Device connects to Wi-Fi SSID
+  FortiGate reads device attributes → matches SAME NAC policies → assigns VLAN on SSID
+
+One policy set → consistent access control for both wired and wireless:
+  "IoT NAC Policy": camera → IoT VLAN 30
+    → Applied to switch port when camera is wired ✅
+    → Applied to SSID when camera is wireless ✅
+  Same policy, same result, regardless of connection type
+```
+
+### What FortiClient EMS Tag Enables
+
+**FortiClient EMS (Endpoint Management Server)** can tag devices based on endpoint status:
+
+```
+FortiClient installed on endpoint → reports to EMS:
+  Antivirus: up to date ✅
+  Firewall: enabled ✅
+  Disk encryption: enabled ✅
+  OS patches: current ✅
+  EMS tag assigned: "Compliant"
+  
+OR:
+  Antivirus: outdated ❌
+  OS patches: 3 critical missing ❌
+  EMS tag: "Non-Compliant"
+
+NAC policies read EMS tags:
+  Compliant → Corporate VLAN (full access)
+  Non-Compliant → Remediation VLAN (limited access, Windows Update only)
+  No FortiClient → Guest VLAN (internet only)
+```
+
+This creates **posture-based access control** — not just WHO you are, but HOW SECURE your device is.
+
+### Vulnerability Assessment Integration
+
+The slide mentions **vulnerability** as a matching criterion:
+
+```
+FortiGate + FortiClient can assess device vulnerability level:
+  Low risk → Corporate VLAN
+  Medium risk → Restricted VLAN (access to fewer resources)
+  High risk → Quarantine VLAN (incident response)
+  
+Real-time enforcement:
+  Device initially clean → Corporate VLAN ✅
+  User installs vulnerable software → vulnerability score increases
+  NAC re-evaluation (every 120 seconds) → detects new risk
+  Device moved to Restricted VLAN automatically → without user disconnecting
+```
+
+# Integrated Wireless NAC — SSID and VLAN
+
+The slide explains the **minimum two-VLAN requirement** for Wireless NAC:
+
+**Two VLANs required:**
+
+| VLAN | Purpose | Requirements |
+|---|---|---|
+| **Onboarding VLAN** | First VLAN assigned when device connects | DHCP server + Device detection enabled |
+| **Target VLAN(s)** | Final VLAN assigned after NAC policy match | VLAN within SSID broadcast domain |
+
+**Onboarding VLAN requirements:**
+- Must have **Layer 3 settings** (IP address, subnet)
+- Must have **DHCP server** configured
+- Must have **Device detection** enabled (FortiGate reads device fingerprints)
+- NAC profile must reference this specific VLAN
+
+**VLAN scope note:**
+- Target VLAN IDs must be **within the SSID interface broadcast domain**
+- Cannot assign a device to a VLAN that the SSID interface doesn't know about
+
+**GUI Path:** `System > Interfaces` → configure VLANs as sub-interfaces of SSID interface
+
+### The Two-VLAN Architecture — Why Two Are Required
+
+**Why not just one VLAN?**
+
+```
+Single VLAN scenario (no onboarding):
+  Device connects → immediately needs a VLAN → which VLAN?
+  NAC hasn't had time to identify the device yet
+  → Chicken-and-egg problem: need to identify device BEFORE assigning VLAN
+                             but device needs IP address TO BE identified
+  
+Two-VLAN solution:
+  Device connects → temporarily gets ONBOARDING VLAN
+  → Device gets DHCP IP from onboarding VLAN
+  → Device detection runs → reads MAC OUI, HTTP user-agent, DHCP fingerprint
+  → NAC policies evaluated → match found
+  → Device MOVED to appropriate target VLAN (VLAN reassignment)
+  → New DHCP lease from target VLAN
+  
+The onboarding VLAN is the "waiting room" — temporary, always, for every new device
+```
+
+> 💡 **Real-world analogy:** The onboarding VLAN is like an airport immigration holding area. Every passenger arrives in the same holding area first — regardless of nationality or visa status. Immigration officers (device detection) check their documents (device fingerprints). Then each person is directed to the correct terminal (target VLAN) based on what they found.
+
+### Device Detection — The Identification Engine
+
+For the onboarding VLAN to work, **Device Detection must be enabled**:
+
+```
+GUI: System > Interfaces > [Onboarding VLAN interface]
+  → Enable: Device Detection ✅
+
+What device detection collects:
+  MAC OUI: First 3 bytes identify manufacturer
+    → 70:4C:A5 = Fortinet (FortiAP)
+    → 00:50:56 = VMware (virtual machine)
+    → B8:27:EB = Raspberry Pi Foundation
+    
+  DHCP fingerprint: Request options reveal OS type
+    → Windows 10: specific DHCP option request order
+    → iOS: different option order
+    → Android: another pattern
+    
+  HTTP User-Agent: Web browser reveals OS/device type
+    → "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)"
+    
+  mDNS/Bonjour: Apple devices announce service types
+    → "_airplay._tcp.local" = Apple TV
+    → "_ipp._tcp.local" = network printer
+    
+FortiGate matches collected fingerprints against:
+  → Built-in device signature database (updated via FortiGuard)
+  → Result: "iPhone 14" or "Windows Workstation" or "IP Camera"
+```
+### Minimum Layer 3 Configuration for Onboarding VLAN
+
+```
+System > Interfaces > [SSID interface]
+  Create VLAN sub-interface: "WLAN_Onboarding"
+    VLAN ID: 1049
+    IP/Mask: 10.10.104.1/24
+    Administrative Access: PING (for testing)
+    Device Detection: ✅ ENABLED (critical!)
+    
+    DHCP Server:
+      Range: 10.10.104.10 - 10.10.104.200
+      Lease time: 300 seconds (5 minutes — short for onboarding!)
+      Gateway: 10.10.104.1
+      DNS: 8.8.8.8
+      
+Create target VLAN sub-interface: "WLAN_Corporate"
+    VLAN ID: 10
+    IP/Mask: 10.10.10.1/24
+    DHCP Server:
+      Range: 10.10.10.10 - 10.10.10.254
+      Lease time: 28800 seconds (8 hours — normal)
+
+Create target VLAN sub-interface: "WLAN_IoT"
+    VLAN ID: 30
+    IP/Mask: 10.10.30.1/24
+    DHCP Server: 10.10.30.10-200
+```
+
+**Why short lease time on onboarding VLAN?**
+- Device gets onboarding IP → NAC evaluates → moves to target VLAN → needs new IP
+- Short lease = DHCP releases quickly → no IP address waste
+- Device gets correct IP from target VLAN DHCP faster
+
+### VLAN Scope — The Broadcast Domain Constraint
+
+**The slide states:** *"VLAN ID scope is only within the SSID interface broadcast domain."*
+
+```
+What this means:
+  SSID interface (e.g., Corp-WiFi) is a parent interface
+  Target VLANs must be SUB-INTERFACES of that same SSID interface
+  
+  Correct:
+    Corp-WiFi (parent SSID interface)
+      ├── Corp-WiFi.1049 (WLAN_Onboarding) ← sub-interface ✅
+      ├── Corp-WiFi.10 (WLAN_Corporate)    ← sub-interface ✅
+      └── Corp-WiFi.30 (WLAN_IoT)          ← sub-interface ✅
+      
+  Incorrect:
+    Corp-WiFi (parent SSID interface)
+    LAN interface VLAN 10 ← different parent interface ❌
+    → FortiGate cannot reassign wireless client to a VLAN
+       on a different parent interface
+```
+
+# Integrated Wireless NAC — NAC Policies
+
+The slide shows **NAC Policy configuration** — the matching rules that determine device VLAN placement:
+
+**NAC Policy components:**
+
+| Component | Description |
+|---|---|
+| **Matching patterns** | Device type, user group, EMS tag, vulnerability, OS, etc. |
+| **Wildcard support** | Patterns support `*` and `?` wildcards for flexible matching |
+| **AND logic** | Multiple patterns in one policy → ALL must match (AND logic) |
+| **Top-to-bottom evaluation** | Like firewall policies — first match wins |
+| **Re-evaluation trigger** | Changes to NAC policies → ALL matched devices re-evaluated |
+| **VLAN assignment** | "Wireless Controller Action" field → assigns specific VLAN |
+
+**Example shown on slide:**
+- Pattern: Any device matching IoT device type OR specific hardware patterns
+- Action: Assign `IoT_VLAN` to matched wireless device
+
+**GUI Path:** `WiFi & Switch Controller > NAC Policies`
+
+### NAC Policy Logic — Firewall-Style Top-to-Bottom
+
+**The most critical operational concept for NAC policies:**
+
+```
+NAC policies evaluated TOP to BOTTOM — first match wins:
+
+Policy 1: EMS Tag = "Compliant" AND Device = "Windows" → VLAN 10 (Corporate)
+Policy 2: EMS Tag = "Non-Compliant" → VLAN 99 (Remediation)
+Policy 3: Device Type = "iPhone" OR "Android" → VLAN 40 (BYOD Mobile)
+Policy 4: Device Type = "IP Camera" → VLAN 30 (IoT)
+Policy 5: Device Type = "Printer" → VLAN 30 (IoT)
+Default: No match → stays in Onboarding VLAN (or assign Guest VLAN)
+
+Execution trace for "Compliant Windows laptop":
+  Check Policy 1: EMS=Compliant ✅ AND Device=Windows ✅ → MATCH → VLAN 10 ✅ STOP
+  
+Execution trace for "Non-Compliant Windows laptop":
+  Check Policy 1: EMS=Compliant ❌ → NO MATCH → continue
+  Check Policy 2: EMS=Non-Compliant ✅ → MATCH → VLAN 99 ✅ STOP
+  
+Execution trace for "Unknown device, MAC OUI = camera":
+  Check Policy 1: EMS=Compliant ❌ → NO MATCH → continue
+  Check Policy 2: EMS=Non-Compliant ❌ → NO MATCH → continue
+  Check Policy 3: Device=iPhone ❌, Android ❌ → NO MATCH → continue
+  Check Policy 4: Device=IP Camera ✅ → MATCH → VLAN 30 ✅ STOP
+```
+
+**Policy ordering best practices:**
+```
+Place MOST SPECIFIC policies at the TOP:
+  → Compliant managed devices first (smallest, most specific group)
+  → Non-compliant managed devices second
+  → BYOD devices third
+  → IoT devices fourth
+  → Default/catch-all last
+
+Place MOST GENERAL policies at the BOTTOM:
+  → "All unknown devices → Guest VLAN"
+  → This ensures everything gets classified, nothing falls through
+```
+
+### Wildcard Pattern Support — Flexible Matching
+
+**Wildcards in NAC policy patterns:**
+
+```
+Wildcard *  = zero or more characters
+Wildcard ?  = exactly one character
+
+Device type examples:
+  "iPhone*"     → matches iPhone 12, iPhone 13, iPhone 14 Pro Max, etc.
+  "Samsung*"    → matches all Samsung devices
+  "*Camera*"    → matches any device with "Camera" in device type name
+  "HP*Printer"  → matches "HP LaserJet Printer" and "HP Color Printer"
+
+OS version examples:
+  "Windows 1?"   → matches Windows 10 and Windows 11
+  "iOS 1*"       → matches iOS 10 through iOS 19
+  "Android*"     → matches any Android version
+
+MAC OUI examples (for vendor-specific matching):
+  "70:4C:A5:*"   → matches all Fortinet MAC addresses
+  "B8:27:EB:*"   → matches all Raspberry Pi devices
+```
+
+### AND Logic — All Patterns Must Match
+
+```
+Policy: Multiple conditions
+  Device Type = "Windows"    ← condition 1
+  EMS Tag = "Compliant"      ← condition 2
+  User Group = "Employees"   ← condition 3
+  
+  ALL THREE must be true → VLAN 10 (Corporate)
+  
+  Device = Windows BUT EMS = Non-Compliant → NO match → falls to next policy
+  Device = Windows AND EMS = Compliant BUT not in Employees group → NO match
+  
+This AND logic enables precise, granular access control:
+  A contractor's laptop running Windows AND with FortiClient Compliant
+  → Still doesn't match "Employees" user group
+  → Falls to contractor-specific policy → Contractor VLAN (more restricted)
+```
+
+### Re-evaluation After Policy Change
+
+**The slide states:** *"Changes to existing matched NAC policies will require matched device to re-evaluate."*
+
+```
+Operational implication:
+  50 iPhones matched Policy 3 (BYOD Mobile → VLAN 40)
+  Admin edits Policy 3: adds new condition
+  
+  Immediate result:
+    FortiGate DELETES all 50 previous matches
+    Re-evaluates all 50 connected iPhones against current policies
+    
+  For each iPhone:
+    If still matches Policy 3 → reassigned to VLAN 40 (may get new IP)
+    If no longer matches → moves to onboarding VLAN or next matching policy
+    
+  User impact:
+    Brief disconnection (VLAN change = DHCP rebind)
+    Users see brief Wi-Fi reconnect event
+    
+Best practice: Change NAC policies during maintenance windows
+               Communicate expected brief disruption to users
+```
+
+# Integrated Wireless NAC — VLAN Assignment
+
+The slide provides the **complete VLAN assignment logic** covering both new connections and reconnections:
+
+**Initial connection (new device):**
+- Device connects → assigned to **onboarding VLAN** (always, without exception)
+
+**Reconnecting device (within 10 minutes):**
+- Reconnects to same SSID within **10 minutes** of disconnection → assigned to **PREVIOUSLY used VLAN** (if no policy changes)
+- This prevents unnecessary DHCP rebinding for brief disconnections
+
+**Continuous re-evaluation (every 120 seconds):**
+FortiGate checks ALL connected devices every 120 seconds. Device keeps current VLAN assignment IF:
+- ✅ NAC policy still exists in same VDOM
+- ✅ NAC policy is still active
+- ✅ Device patterns still match the policy
+- ✅ SSID NAC profile still points to same onboarding VLAN
+- If ANY condition fails → device moved BACK to onboarding VLAN
+
+
+### The Three VLAN Assignment Scenarios — Complete Analysis
+
+**Scenario 1 — Brand New Device:**
+```
+Timeline:
+  t=0s: Device connects to SSID for first time
+  t=0s: Assigned → Onboarding VLAN 1049
+  t=0s: DHCP assigns 10.10.104.x IP
+  t=0-30s: Device detection collects fingerprints
+  t=30s: NAC policy evaluation → match found
+  t=30s: Assigned → IoT VLAN 30
+  t=30s: Device gets new DHCP lease from VLAN 30 (10.10.30.x)
+  t=30s: Firewall policies for VLAN 30 apply
+  
+  From user/device perspective:
+    Brief period on 10.10.104.x → then moves to 10.10.30.x
+    IoT device won't "notice" — just connects and works
+    Human user: brief reconnect that looks like normal association
+```
+
+**Scenario 2 — Reconnecting Within 10 Minutes:**
+```
+Timeline:
+  t=0: Device connected → VLAN 10 (Corporate) → IP 10.10.10.45
+  t=5m: User walks to meeting room → brief signal drop → disconnects
+  t=5m30s: User reconnects to same SSID
+  
+  FortiGate logic:
+    "This MAC was on VLAN 10, SSID Corp-WiFi"
+    "Disconnection was only 30 seconds ago"
+    "NAC policy hasn't changed"
+    → SKIP onboarding VLAN → directly assign VLAN 10
+    → If DHCP lease still valid → IP 10.10.10.45 renewed
+    → No visible disruption for user ✅
+    
+  Why 10 minutes threshold:
+    Long enough to cover brief signal drops, elevator rides, walking between APs
+    Short enough to force re-evaluation after meaningful absence
+    (Device state may change if away >10 minutes)
+```
+
+**Scenario 3 — Reconnecting After More Than 10 Minutes:**
+```
+Timeline:
+  t=0: Device connected → VLAN 10 (Corporate)
+  t=60m: Device disconnects (user went to lunch, device went to sleep)
+  t=120m: Device reconnects (user returns)
+  
+  FortiGate logic:
+    "More than 10 minutes have passed"
+    "Device state may have changed"
+    → MUST re-evaluate → assign Onboarding VLAN first
+    → Device detection re-runs
+    → NAC policies re-evaluated
+    → Presumably matches same policy → VLAN 10 re-assigned
+    → May get different IP from DHCP (previous lease may have expired)
+    
+  This protects against:
+    "Device was clean at 8 AM → infected while offline → reconnects at noon"
+    NAC re-evaluates posture → if now non-compliant → Remediation VLAN
+    Cannot skip straight to Corporate VLAN just because it was there before
+```
+
+### The 120-Second Re-Evaluation Cycle — Continuous Enforcement
+
+**The most powerful NAC feature — dynamic, real-time policy enforcement on connected devices:**
+
+```
+Every 120 seconds, for EVERY connected wireless device:
+  FortiGate re-runs the following checks:
+  
+  Check 1: "Does the matched NAC policy still exist?"
+    → Policy was deleted → device → Onboarding VLAN
+    
+  Check 2: "Is the matched NAC policy still active (enabled)?"
+    → Policy disabled → device → Onboarding VLAN
+    
+  Check 3: "Do the device patterns still match?"
+    → Device now has FortiClient Non-Compliant tag → no longer matches Compliant policy
+    → Device → Remediation VLAN (matched to different policy)
+    
+  Check 4: "Does the SSID NAC profile still reference the same onboarding VLAN?"
+    → Onboarding VLAN changed → device → re-evaluate with new onboarding
+    
+  If all checks pass: Device STAYS on current VLAN ✅
+  If any check fails: Device MOVES to Onboarding VLAN → re-evaluate → new VLAN
+
+Real-world impact:
+  10:00 AM: Employee laptop connects → EMS=Compliant → VLAN 10 ✅
+  10:15 AM: Employee runs malware scan → malware detected → EMS=Non-Compliant
+  10:16 AM: 120-second re-evaluation cycle runs
+             EMS tag changed → no longer matches "Compliant" policy
+             → Employee laptop moved to Remediation VLAN 99 AUTOMATICALLY
+             → No admin intervention needed
+             → Security response is instantaneous and automatic
+```
+
+> 💡 **Real-world analogy:** The 120-second cycle is like a nightclub with a velvet rope where the bouncer checks your credentials every 2 minutes — even after you're inside. If your status changes (your VIP pass expires, you behave badly), you're immediately moved from the VIP area to the general area or asked to leave — without waiting until you leave and try to re-enter.
+
+### The "Otherwise" Clause — Return to Onboarding VLAN
+
+Any failed re-evaluation check → device returns to onboarding VLAN → **immediately re-evaluated against all current policies**:
+
+```
+Device on VLAN 10 → check fails → VLAN 1049 (onboarding) → re-evaluate
+  If matches another policy → new target VLAN assigned
+  If no policy matches → stays in onboarding VLAN
+
+This means onboarding VLAN is not just the "first" VLAN:
+  It's also the "default" VLAN for any device that loses its policy match
+  → Must configure appropriate firewall policies for onboarding VLAN
+  → Onboarding VLAN should have internet blocked (only allow device detection traffic)
+  → No production resources accessible from onboarding VLAN
+```
+
+# Integrated Wireless NAC — Monitor and Debug
+
+The slide shows **monitoring and diagnostic tools** for Wireless NAC:
+
+**GUI monitoring:**
+`WiFi & Switch Controller > NAC Policies > View Matched Devices`
+- Shows devices matched to NAC policies
+- Displays both FortiSwitch (wired) and FortiAP (wireless) matched devices in one view
+
+**CLI command 1 — Show connected stations with NAC info:**
+```bash
+FortiGate # diagnose wireless-controller wlac_hlp -c sta-nac
+
+STA (001/002) vfid,mac: 0, dc:a6:32:9f:c1:46
+ip               : 10.10.104.2
+wlan             : Tunnel(tunnel)
+vlan-id(oper/dflt): 104/1049
+matched nac-policy: IoT NAC Policy
+```
+
+**CLI command 2 — List configured NAC profiles:**
+```bash
+FortiGate # diagnose wireless-controller wlac_hlp -c nacprof
+
+NACPROF (001/001) vdom,name: root, NAC Profile
+ob-vlan          : WLAN_Onboarding(1049)
+```
+
+### Reading the sta-nac Output — Field-by-Field Analysis
+
+```bash
+diagnose wireless-controller wlac_hlp -c sta-nac
+```
+
+**Complete output breakdown:**
+
+```
+STA (001/002) vfid,mac: 0, dc:a6:32:9f:c1:46
+  STA         = Station (wireless client)
+  001/002     = This is station 1 of 2 total NAC-enrolled stations
+  vfid        = Virtual Domain ID (0 = root VDOM)
+  mac         = Station's MAC address: dc:a6:32:9f:c1:46
+
+ip            : 10.10.104.2
+  Current IP address of this station
+  10.10.104.x = still on onboarding VLAN subnet (104)
+  → This device has been onboarded but not yet re-assigned
+  OR is still being evaluated
+
+wlan          : Tunnel(tunnel)
+  The SSID this station is connected to
+  "Tunnel" = SSID name
+  "(tunnel)" = traffic mode (Tunnel Mode SSID)
+
+vlan-id(oper/dflt): 104/1049
+  oper = CURRENTLY OPERATING VLAN ID: 104
+  dflt = DEFAULT (onboarding) VLAN ID: 1049
+  
+  Wait — 104 ≠ 1049?
+  → oper=104 means the device is currently on VLAN 104
+  → dflt=1049 means the onboarding VLAN ID is 1049
+  
+  Interpretation:
+    oper=1049 AND dflt=1049 → device STILL in onboarding VLAN → not yet classified
+    oper=10 AND dflt=1049 → device on VLAN 10 (Corporate) → successfully classified ✅
+    oper=104 AND dflt=1049 → device moved to VLAN 104 → check what policy matched
+
+matched nac-policy: IoT NAC Policy
+  The specific NAC policy that matched this device
+  "IoT NAC Policy" → device was identified as IoT type
+  → Should be on IoT VLAN (check oper VLAN matches expected IoT VLAN)
+  
+  If this shows "None" → device didn't match any policy → still in onboarding VLAN
+```
+
+### Reading the nacprof Output — Profile Verification
+
+```bash
+diagnose wireless-controller wlac_hlp -c nacprof
+```
+
+**Output breakdown:**
+```
+NACPROF (001/001) vdom,name: root, NAC Profile
+  NACPROF     = NAC Profile entry
+  001/001     = Profile 1 of 1 total profiles
+  vdom,name   = root VDOM, profile named "NAC Profile"
+
+ob-vlan       : WLAN_Onboarding(1049)
+  ob-vlan = onboarding VLAN
+  WLAN_Onboarding = interface name of onboarding VLAN
+  (1049) = VLAN ID of the onboarding VLAN
+```
+
+**Why this command is important for troubleshooting:**
+```
+If devices are not being classified:
+  Step 1: Check nacprof → verify correct onboarding VLAN referenced
+  Step 2: Check sta-nac → see what policy (if any) matched the device
+  Step 3: Compare oper VLAN with expected target VLAN from NAC policy
+  
+Common issue: nacprof shows wrong ob-vlan
+  → NAC profile pointing to wrong onboarding VLAN
+  → Device gets IP from wrong subnet → NAC evaluation may fail
+  → Fix: Edit NAC profile → select correct onboarding VLAN
+```
+### GUI Monitoring — View Matched Devices
+
+**GUI Path:** `WiFi & Switch Controller > NAC Policies`
+- Default view: Shows all NAC policies
+- Click **"View Matched Devices"** button → switches view to matched devices
+
+**What the matched devices view shows:**
+```
+Device MAC     | Device Type | User | VLAN Assigned | NAC Policy    | Port/SSID
+dc:a6:32:9f:c1:46 | IP Camera  | -    | IoT VLAN (30) | IoT NAC Policy | Corp-WiFi
+70:4c:a5:9d:0d:28 | Windows PC | john | Corporate (10)| Employee Policy| Corp-WiFi
+b8:27:eb:d8:50:02 | Raspberry Pi| -   | Onboarding    | None           | Corp-WiFi
+```
+
+**The unified view shows both wired (FortiSwitch) and wireless (FortiAP) devices:**
+```
+FortiSwitch port 5: Camera → IoT VLAN 30 (NAC: IoT NAC Policy)
+Corp-WiFi SSID:     Camera → IoT VLAN 30 (NAC: IoT NAC Policy) ← same policy!
+
+One policy → consistent VLAN assignment → wired or wireless → identical result
+```
+
+### Complete Troubleshooting Workflow for Wireless NAC
+
+```
+Problem: "Device connected to SSID but not getting correct VLAN"
+
+Step 1: Verify device is associated
+  diagnose wireless-controller wlac -d sta | grep [device-MAC]
+  → Is device showing in controller table?
+  → Does it have an IP address?
+
+Step 2: Check NAC profile on SSID
+  diagnose wireless-controller wlac_hlp -c nacprof
+  → Is the NAC profile active?
+  → Does it reference correct onboarding VLAN?
+
+Step 3: Check device's NAC status
+  diagnose wireless-controller wlac_hlp -c sta-nac
+  → Find device by MAC
+  → Check "matched nac-policy" field
+    "None" → no policy matched → check policy patterns
+    "IoT NAC Policy" but wrong VLAN → check VLAN assignment in policy
+
+Step 4: Verify NAC policy patterns
+  WiFi & Switch Controller > NAC Policies
+  → View policy that should match
+  → Check matching patterns → does device meet ALL criteria?
+  → Check VLAN assignment → correct target VLAN selected?
+
+Step 5: Verify VLAN interfaces
+  System > Interfaces
+  → Is onboarding VLAN interface up?
+  → Is onboarding VLAN DHCP server configured?
+  → Is device detection enabled on onboarding VLAN?
+  → Is target VLAN a sub-interface of same SSID interface?
+
+Step 6: Force re-evaluation
+  Disconnect and reconnect device (if >10 minutes: fresh evaluation)
+  → Watch sta-nac output → does policy now match?
+```
+
+# 📊 Master Summary
+
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│           INTEGRATED WIRELESS NAC — COMPLETE GUIDE                       │
+├─────────────────────────┬────────────────────────────────────────────────┤
+│ TOPIC                   │ KEY FACTS                                      │
+├─────────────────────────┼────────────────────────────────────────────────┤
+│ What It Is              │ Extension of FortiSwitch NAC to wireless       │
+│                         │ Shares SAME NAC policies (wired + wireless)   │
+│                         │ Works on Tunnel Mode AND Bridge Mode SSIDs     │
+│                         │ Matches: device type, user group, EMS tag,    │
+│                         │          vulnerability, OS, MAC OUI            │
+├─────────────────────────┼────────────────────────────────────────────────┤
+│ Two VLANs Required      │ Onboarding VLAN: temporary "waiting room"     │
+│                         │   → Requires: L3 settings + DHCP + DevDetect  │
+│                         │   → Must be sub-interface of SSID interface   │
+│                         │ Target VLAN(s): final assignment per policy   │
+│                         │   → Also sub-interfaces of same SSID parent   │
+├─────────────────────────┼────────────────────────────────────────────────┤
+│ NAC Policies            │ Top-to-bottom evaluation (like firewall rules) │
+│                         │ First match wins — order matters!              │
+│                         │ AND logic: ALL patterns must match            │
+│                         │ Wildcard: * and ? supported in patterns        │
+│                         │ Policy change → ALL matched devices re-eval    │
+│                         │ VLAN assignment in "Wireless Controller Action"│
+├─────────────────────────┼────────────────────────────────────────────────┤
+│ VLAN Assignment Logic   │ New device → always Onboarding VLAN first     │
+│                         │ Reconnect <10 min → previous VLAN (no re-eval)│
+│                         │ Reconnect >10 min → Onboarding VLAN again     │
+│                         │ Re-evaluation: every 120 seconds              │
+│                         │ Re-eval fails any check → back to Onboarding  │
+├─────────────────────────┼────────────────────────────────────────────────┤
+│ 120s Re-evaluation      │ Checks: policy exists, active, patterns match, │
+│ Conditions              │         NAC profile still same onboarding VLAN │
+│                         │ Enables: real-time posture enforcement         │
+│                         │ EMS tag changes → VLAN changes in ~2 minutes  │
+├─────────────────────────┼────────────────────────────────────────────────┤
+│ Monitor / Debug         │ GUI: WiFi & Switch Controller > NAC Policies  │
+│                         │      → View Matched Devices                   │
+│                         │ CLI: diag wireless-controller wlac_hlp        │
+│                         │       -c sta-nac → per-device NAC status      │
+│                         │       -c nacprof → configured NAC profiles    │
+│                         │ Key fields: oper/dflt VLAN, matched nac-policy│
+│                         │ oper=dflt=1049 → still in onboarding (not yet)│
+│                         │ oper≠dflt → successfully classified ✅         │
+└─────────────────────────┴────────────────────────────────────────────────┘
+
+⚠️  CRITICAL RULES TO REMEMBER:
+  1. NAC requires MINIMUM 2 VLANs — onboarding + at least one target
+  2. Onboarding VLAN MUST have Device Detection enabled (won't classify without it)
+  3. Both VLANs must be sub-interfaces of the SAME SSID parent interface
+  4. NAC policies are top-to-bottom — most specific FIRST, catch-all LAST
+  5. ALL patterns in one policy must match (AND logic — not OR)
+  6. Re-evaluation is every 120 seconds — EMS posture changes take effect quickly
+  7. Policy changes → ALL matched devices immediately re-evaluated (brief disruption)
+  8. Reconnect <10 min → skips onboarding → good for roaming users
+  9. Reconnect >10 min → must go through onboarding VLAN again — security requirement
+  10. sta-nac oper=dflt means device is stuck in onboarding → investigate policy match
+```
 
 ### Topic: Wireless Network Access — Security Fabric Quarantine & Automated Response
 
----
-
----
-
-# 📄 PAGE 185 — Automated Response — Quarantine
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Automated Response — Quarantine
 
 The slide introduces the **Security Fabric's automated quarantine capability**:
 
@@ -5327,10 +5936,6 @@ The slide introduces the **Security Fabric's automated quarantine capability**:
 | 🧑‍💻 **Infected guest device** | Can attack other guests/corporate | Automatically isolated + remediation option offered |
 
 **GUI Path:** `Security Fabric > Physical Topology`
-
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
 
 ### What Is the Security Fabric?
 
@@ -5353,8 +5958,6 @@ When one member detects a threat → ALL members can act on it simultaneously.
 
 > 💡 **Real-world analogy:** The Security Fabric is like a **hospital's internal communication system** — when one doctor identifies a contagious patient, the entire hospital is immediately informed, isolation rooms are prepared, and all staff take protective measures — automatically, within seconds.
 
----
-
 ### IOC — Indicator of Compromise — Explained
 
 An **IOC (Indicator of Compromise)** is a piece of forensic evidence that suggests a device has been compromised:
@@ -5374,8 +5977,6 @@ An **IOC (Indicator of Compromise)** is a piece of forensic evidence that sugges
 - Receives logs from FortiGate (web filter blocks, IPS events, DNS queries, traffic logs)
 - Compares against **FortiGuard IOC database** — continuously updated threat intelligence
 - If a match is found → **IOC verdict** is issued against that device's IP/MAC
-
----
 
 ### Why Access Layer Quarantine Is Critical
 
@@ -5401,8 +6002,6 @@ Security Fabric quarantine:
 
 > 💡 **Real-world analogy:** Layer 3 quarantine is like **changing the combination on the safe** — the thief is still inside the building and can cause damage. Access Layer quarantine is like **physically removing the thief from the building** — complete isolation immediately.
 
----
-
 ### IoT Device Quarantine — Specific Importance
 
 IoT devices are particularly vulnerable because:
@@ -5419,15 +6018,7 @@ With Security Fabric quarantine:
 3. Device is isolated — cannot communicate with any other device
 4. Alert sent to administrator for remediation
 
----
-
----
-
-# 📄 PAGE 186 — Security Fabric Quarantine Automation
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Security Fabric Quarantine Automation
 
 The slide shows the **complete 6-step quarantine automation workflow**:
 
@@ -5446,10 +6037,6 @@ Step 5: FortiAnalyzer determines security risk verdict
 Step 6: FortiGate automation stitch quarantines the compromised workstation
 ```
 
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
-
 ### Step-by-Step Analysis — Full Technical Detail
 
 #### Step 1 — Malicious Site Access Attempt
@@ -5462,8 +6049,6 @@ A workstation (could be wired or wireless) attempts to:
 - Download a **file with known malware hash**
 
 The key word is **"attempts"** — the activity doesn't need to succeed to trigger the workflow.
-
----
 
 #### Step 2 — UTM Detection and Blocking
 
@@ -5479,8 +6064,6 @@ Traffic from workstation:
 
 FortiGate blocks the traffic AND **generates a log entry** for every event.
 
----
-
 #### Step 3 — Log Forwarding to FortiAnalyzer
 
 FortiGate sends **real-time log streams** to FortiAnalyzer:
@@ -5491,8 +6074,6 @@ FortiGate sends **real-time log streams** to FortiAnalyzer:
 - DNS filter logs (malicious domain queries)
 
 FortiAnalyzer is the **brain** of the IOC detection system — it aggregates all logs from all FortiGates in the fabric.
-
----
 
 #### Step 4 — IOC Processing by FortiAnalyzer
 
@@ -5515,8 +6096,6 @@ FortiGuard continuously updates the IOC database with:
 - Botnet signatures
 - Exploit kit indicators
 
----
-
 #### Step 5 — Verdict Sent Back to FortiGate
 
 FortiAnalyzer sends the **IOC verdict** to the root FortiGate of the Security Fabric:
@@ -5531,8 +6110,6 @@ FortiAnalyzer → FortiGate API call:
 ```
 
 This is an **active feedback loop** — FortiAnalyzer doesn't just log, it actively instructs FortiGate to respond.
-
----
 
 #### Step 6 — Automation Stitch Executes Quarantine
 
@@ -5551,15 +6128,7 @@ The entire flow from **Step 1 to Step 6** can happen in **seconds** — far fast
 
 > 💡 **Trainer Tip:** This automated response is especially valuable **outside business hours** — when no IT staff are watching dashboards. The system detects and contains threats at 3 AM without any human intervention.
 
----
-
----
-
-# 📄 PAGE 187 — Security Fabric Automation Stitch
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Security Fabric Automation Stitch
 
 The slide shows the **automation stitch configuration** in FortiGate:
 
@@ -5579,10 +6148,6 @@ The slide shows the **automation stitch configuration** in FortiGate:
 - **Access Layer Quarantine** = Layer 2 action — places host in isolation
 - Automation stitches configured **per-device** — cannot use FortiManager templates
 
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
-
 ### What Is an Automation Stitch?
 
 An **automation stitch** is FortiGate's **if-this-then-that** engine:
@@ -5593,8 +6158,6 @@ THEN [Execute one or more Actions]
 ```
 
 Think of it like a **security playbook automated** in software — no human needs to manually execute response steps.
-
----
 
 ### Anatomy of a Quarantine Automation Stitch
 
@@ -5624,8 +6187,6 @@ Security Fabric > Automation > Create New Stitch
 - Run a script
 - Trigger another FortiGate policy change
 
----
-
 ### Why Root FortiGate Receives the Verdict
 
 In a Security Fabric with multiple FortiGates (branch + HQ):
@@ -5645,8 +6206,6 @@ FortiAnalyzer always sends to the **root** because:
 - Root can propagate quarantine commands to all downstream devices
 - Centralized control ensures consistent response across the entire fabric
 
----
-
 ### Per-Device Configuration Limitation
 
 The slide notes: *"You apply the setting on a per-device basis, it cannot be applied using a template."*
@@ -5658,8 +6217,6 @@ This means:
 - Plan for this operational overhead in large multi-site deployments
 
 > ⚠️ **Trainer Warning:** In large deployments with many FortiGates, the per-device limitation means significant manual effort to deploy automation stitches consistently. Consider using **FortiManager device-level configuration** (not templates) to push consistent automation stitch settings.
-
----
 
 ### Wired vs. Wireless Quarantine — Same Stitch, Different Action
 
@@ -5680,22 +6237,14 @@ Wireless device compromised:
 
 Both are **Layer 2 access layer actions** — the device loses network connectivity immediately.
 
----
-
----
-
-# 📄 PAGE 188 — Integrated Wireless Quarantine
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Integrated Wireless Quarantine
 
 The slide details the **wireless-specific quarantine configuration**:
 
 **Two quarantine methods:**
 
-- 🤖 **Automatic** — via Security Fabric automation stitch
-- 👤 **Manual** — administrator-initiated
+- **Automatic** — via Security Fabric automation stitch
+- **Manual** — administrator-initiated
 
 **Critical requirements:**
 
@@ -5706,9 +6255,9 @@ The slide details the **wireless-specific quarantine configuration**:
 
 | Auto-Created Resource          | Purpose                                          |
 |--------------------------------|--------------------------------------------------|
-| 🔀 **Quarantine soft switch**  | Virtual switch that isolates quarantined devices |
-| 🌐 **Quarantine interface**    | Dedicated sub-interface for quarantined clients  |
-| 🖥️ **Default captive portal** | Web page shown to quarantined users              |
+| **Quarantine soft switch**  | Virtual switch that isolates quarantined devices |
+| **Quarantine interface**    | Dedicated sub-interface for quarantined clients  |
+| **Default captive portal** | Web page shown to quarantined users              |
 
 **What is NOT auto-created:**
 
@@ -5716,10 +6265,6 @@ The slide details the **wireless-specific quarantine configuration**:
 - Filtering occurs at **FortiGate level only** — not at AP level
 
 **GUI Path:** `WiFi & Switch Controller > SSIDs`
-
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
 
 ### Why Tunnel Mode Only?
 
@@ -5742,8 +6287,6 @@ Bridge Mode — why it doesn't work:
 ```
 
 > ⚠️ **Design implication:** If wireless quarantine is a security requirement for your deployment, you **must** use Tunnel Mode SSIDs. This is a critical design decision that must be made before deployment — remember, traffic mode cannot be changed after SSID creation.
-
----
 
 ### Auto-Created Resources — Deep Dive
 
@@ -5780,8 +6323,6 @@ A "soft switch" is a virtual Layer 2 switch inside FortiGate:
     System > Replacement Messages > WiFi > Quarantine
 ```
 
----
-
 ### What Quarantined Wireless Client Experiences
 
 From the **user's perspective**:
@@ -5803,8 +6344,6 @@ After quarantine:
   → Only access: captive portal page
   → All other traffic: DROPPED
 ```
-
----
 
 ### The Missing Firewall Policy — Why It Matters
 
@@ -5834,15 +6373,7 @@ Policy: Quarantine-Remediation
 
 > 💡 **Trainer Tip:** Always define a remediation policy for your quarantine VLAN. Isolating users without giving them a path to fix their device leads to frustrated users calling IT for every quarantine event. Self-remediation reduces IT workload significantly.
 
----
-
----
-
-# 📄 PAGE 189 — Integrated Wireless Quarantine (Continued)
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Integrated Wireless Quarantine (Continued)
 
 The slide shows the **FortiGate interfaces and firewall policies** automatically created and manually required for quarantine:
 
@@ -5857,10 +6388,6 @@ The slide shows the **FortiGate interfaces and firewall policies** automatically
 - Limited access policies to allow **DNS resolution**
 - Limited HTTPS access to **specific remediation resources**
 - Purpose: Allow quarantined devices to update/patch themselves
-
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
 
 ### Auto-Created Interface Architecture
 
@@ -5879,8 +6406,6 @@ Network > Interfaces:
           Captive Portal: enabled (shows quarantine message)
 ```
 
----
-
 ### Auto-Created DHCP Server for Quarantine
 
 The quarantine DHCP server is configured automatically with:
@@ -5891,8 +6416,6 @@ The quarantine DHCP server is configured automatically with:
 - DNS: typically FortiGate itself (for DNS filtering in quarantine)
 
 Quarantined clients get an IP → can receive the captive portal page → but nothing else.
-
----
 
 ### Manually Created Remediation Policies — Practical Examples
 
@@ -5931,8 +6454,6 @@ Purpose: Allow download of security cleaning tools
 
 > ⚠️ **Important security note:** Be very specific with remediation policies. The purpose is remediation — not general internet access. Use **URL filtering** to restrict HTTPS traffic to only known update/remediation domains. A quarantined compromised device with general internet access could continue malicious activity.
 
----
-
 ### Captive Portal Customization for Quarantine
 
 The default quarantine message can be fully customized:
@@ -5951,15 +6472,8 @@ Customize to include:
 
 A well-designed quarantine page **reduces IT support calls** and speeds up remediation.
 
----
 
----
-
-# 📄 PAGE 190 — Manual Client Quarantine
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Manual Client Quarantine
 
 The slide explains **manual quarantine** — administrator-initiated isolation:
 
@@ -5983,10 +6497,6 @@ The slide explains **manual quarantine** — administrator-initiated isolation:
 | View by assets               | `Dashboard > Assets & Identities > Quarantine` |
 | Release single device        | Select device → Remove from quarantine         |
 | Release all devices          | Remove All button                              |
-
----
-
-## 📋 DETAILED INSTRUCTOR NOTES
 
 ### When Manual Quarantine Is Needed
 
@@ -6027,8 +6537,6 @@ Automated IOC-based quarantine not available
 Manual quarantine is the only quarantine option available
 ```
 
----
-
 ### Manual Quarantine via Security Fabric Physical Topology
 
 The `Security Fabric > Physical Topology` view shows:
@@ -6052,8 +6560,6 @@ Right-clicking a device shows:
 
 This gives a visual, intuitive way to quarantine specific devices without needing to know their IP/MAC.
 
----
-
 ### Manual Quarantine via FortiView
 
 `Dashboard > WiFi > Clients By FortiAP` shows:
@@ -6067,8 +6573,6 @@ Table view of all connected wireless clients:
 ```
 
 Right-click any client → **Quarantine** → immediately isolated.
-
----
 
 ### Managing Quarantined Hosts — Dashboard Widget
 
@@ -6094,8 +6598,6 @@ Current Quarantine Status:
 - See **why they were quarantined** (IOC type or "manual")
 - **Release individual devices** after remediation
 - **Release all devices** (e.g., after a false-positive mass quarantine)
-
----
 
 ### Release From Quarantine — Process Best Practice
 
@@ -6123,11 +6625,7 @@ Step 4: Monitor
 
 > ⚠️ **Trainer Warning:** Never release a device from quarantine without **confirming remediation**. Releasing an unpatched compromised device immediately re-exposes the network to the same threat that triggered quarantine.
 
----
-
----
-
-# 📊 Master Summary — Pages 185–190
+# 📊 Master Summary
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
