@@ -20,10 +20,10 @@ Max Clients: [enter number, e.g., 30]
 + The local-bridging enable CLI Command - The key CLI parameter that enables Bridge Mode VLAN behavior:
   + set local-bridging enable
     + This tells FortiAP to:
-      + 1. Accept wireless client traffic
-      + 2. Apply the appropriate VLAN tag based on SSID/RADIUS assignment
-      + 3. Forward the tagged traffic directly onto the wired interface (802.1Q trunk)
-      + 4. NOT send data traffic through CAPWAP to FortiGate
+      1. Accept wireless client traffic
+      2. Apply the appropriate VLAN tag based on SSID/RADIUS assignment
+      3. Forward the tagged traffic directly onto the wired interface (802.1Q trunk)
+      4. NOT send data traffic through CAPWAP to FortiGate
         + Without this setting → traffic goes through CAPWAP to FortiGate (Tunnel Mode behavior).
 + Change management VLAN from VLAN 1 to a dedicated management VLAN (e.g., VLAN 99). VLAN 1 is the default on most switches and is a common attack target.
 + Dynamic VLANs - Three IETF RADIUS Attributes
