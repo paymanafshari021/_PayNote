@@ -6678,22 +6678,9 @@ Step 4: Monitor
   5. Never release from quarantine without confirming remediation
   6. Access Layer Quarantine = Layer 2 isolation — strongest possible containment
 ```
-
----
-
----
-
 ### Topic: FortiAP Profiles — Configuration, Radio Settings & Channel Management
 
----
-
----
-
-# 📄 PAGE 197 — Access Points (FortiAP Profile Overview)
-
----
-
-## 🖥️ SLIDE SUMMARY
+# Access Points (FortiAP Profile Overview)
 
 The slide introduces **FortiAP as a thin AP** and explains the purpose of **AP profiles**:
 
