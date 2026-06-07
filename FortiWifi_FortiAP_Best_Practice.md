@@ -33,14 +33,14 @@ Max Clients: [enter number, e.g., 30]
 + Default VLAN 100 = fallback if RADIUS sends no VLAN info
 + The default VLAN is your safety net AND a diagnostic tool. If many users are landing on the default VLAN unexpectedly, your RADIUS attribute configuration likely has an error.
 + Before enabling dynamic-vlan:
-  + □ All possible VLAN sub-interfaces created on FortiGate
-  + □ Each VLAN has IP address configured
-  + □ Each VLAN has DHCP server or relay configured
-  + □ Each VLAN has at least one firewall policy
-  + □ RADIUS server configured to return all 3 IETF attributes
-  + □ Test with a known user and verify correct VLAN assignment
-  + □ Default VLAN configured as fallback
-  + □ Default VLAN firewall policy and DHCP configured
+  + All possible VLAN sub-interfaces created on FortiGate
+  + Each VLAN has IP address configured
+  + Each VLAN has DHCP server or relay configured
+  + Each VLAN has at least one firewall policy
+  + RADIUS server configured to return all 3 IETF attributes
+  + Test with a known user and verify correct VLAN assignment
+  + Default VLAN configured as fallback
+  + Default VLAN firewall policy and DHCP configured
 + VLAN Assignment by Name Tag
   - Each name can map to **1 VLAN ID** (one-to-one) OR up to **8 VLAN IDs** (one-to-many)
   - When multiple VLAN IDs are assigned per name → **round-robin** selection
